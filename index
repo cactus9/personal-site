@@ -16,10 +16,10 @@
             <div id="menu">
                 <p id="me">Evan Caton</p>
                 <div class="fill-text">
-                    <h1>Iris Project</h1>
+                    <a href="iris"><h1>Iris Project</h1></a>
                 </div>
                 <div class="fill-text">
-                    <h1>About</h1>
+                    <a href="about"><h1>About</h1></a>
                 </div>
                 <div class="fill-text">
                     <a href="https://github.com/cactus9"><h1>GitHub</h1></a>
