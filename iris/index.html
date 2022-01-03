@@ -3,23 +3,23 @@
     <head>
         <meta charset="utf-8">
         <title>Iris project</title>
-        <link rel="stylesheet" href="styles/fonts.css">
-        <link rel="stylesheet" href="styles/article.css">
-        <link rel="icon" type="image/x-icon" href="images/favicon.svg">
+        <link rel="stylesheet" href="../styles/fonts.css">
+        <link rel="stylesheet" href="../styles/article.css">
+        <link rel="icon" type="image/x-icon" href="../images/favicon.svg">
         <style media="screen">
             .header {
-                background-image: url("images/irisbackdrop.jpg");
+                background-image: url("../images/irisbackdrop.jpg");
                 background-position: center;
                 background-repeat: no-repeat;
                 background-size: cover;
             }
         </style>
         <meta name="og:title" content="Exploring Machine Learning Models with the Iris Data Set" />
-        <meta name="og:image" content="images/irisbackdrop.jpg">
+        <meta name="og:image" content="../images/irisbackdrop.jpg">
         <meta name="og:type" content="article">
     </head>
     <body>
-<a href="./" id="home-button"><img src="images/favicon.svg" title="Home"></a>
+<a href="../" id="home-button"><img src="../images/favicon.svg" title="Home"></a>
 <div class="header">
     <h1>Exploring Machine Learning Models with the Iris Data Set</h1>
 </div>
@@ -48,7 +48,7 @@
             The <a href="https://archive.ics.uci.edu/ml/datasets/iris">Iris Data Set</a> is a classic set of data records that is widely used to demonstrate various machine learning principles. It is made up of various measurements for 150 iris flowers, 50 from each of the species <i>Iris versicolor</i>, <i>Iris virginica</i>, and <i>Iris setosa</i>. The measurements taken are the sepal height (SH), sepal width (SW), petal height (PH), and petal width (PW).
             </p>
             <div class="captioned-image-div">
-                <img src="images/iris-diagram-clean.svg" alt="diagram of iris measurements" width="40%" style="margin-left:30%;">
+                <img src="../images/iris-diagram-clean.svg" alt="diagram of iris measurements" width="40%" style="margin-left:30%;">
                 <p class="img-caption">Vertical view of an iris showing the locations of measurements used in the Iris Data Set</p>
             </div>
             <p>
@@ -62,7 +62,7 @@
         The 21-Questions of machine learning, the classic decision tree is a simpler version of a flow chart without loops. At each node an attribute (measurement) of the instance is considered, and child nodes are constructed for each possible outcome of that consideration - a child node per value the attribute could take. If at a given node all instances in the training data that reach it have the same class, we can stop there and return their class as our final classification. If we have run out of attributes to consider, then we return the most common classification of instances that reach that node. If we still have attributes left to consider and we have not completely seperated our instances, then we choose an attribute to ask questions about and go from there.
         </p>
         <div class="captioned-image-div">
-            <img src="images/example-tree.svg" alt="example decision tree with dataset" width="60%" style="margin-left:20%;">
+            <img src="../images/example-tree.svg" alt="example decision tree with dataset" width="60%" style="margin-left:20%;">
             <p class="img-caption"><i>Sample data set and a possible decision tree for it. The "Name" attribute is not considered when building the tree.</i></p>
         </div>
         <p>
@@ -81,7 +81,7 @@
         Well, obviously our data set is finite, so we could just ignore any values for the attribute that do not appear in the data set, <i>discretising</i> the attribute. However there are two major problems with this approach. Firstly, consider a data set with 1 million entries and with the continuous attribute - let's say temperature - measured to <i>x</i> decimal places. Intuitively, we can see that as <i>x</i> increases, the likelihood that any two instances will share the value for that attribute is probably going to decrease. At a certain level of precision it may very well be that every instance has a unique value and therefore would be put into its own child node, which would mean that you would 1 million child nodes. Not terribly efficient. This leads into the second issue - what if the test instance has a value for the attribute not shared by any instance in the training data? The tree has no defined branch for it. Maybe you could try rounding it to the nearest value that appears in the dataset, but consider how information gain will favour this attribute above all others - this node lead to a partition of one instance and therefore only contains one class and thus has an entropy of 0, so this is practically guaranteed to be the first (and only) attribute considered. It won't matter what any other attribute's values are just because of the data-type used for this one. Again, this leads to severe overfitting in our decision tree.
         </p>
         <div class="captioned-image-div">
-            <img src="images/overfit-tree.svg" alt="example discretised tree" width="70%" style="margin-left:15%;">
+            <img src="../images/overfit-tree.svg" alt="example discretised tree" width="70%" style="margin-left:15%;">
             <p class="img-caption">Sample data set with average temperature, discretised. Say one day you record a temperature of 17C in Kenya - the rounding tree will ignore the much more important language information and claim you are in France!</p>
         </div>
         <p>
@@ -90,7 +90,7 @@
         Using all the techniques described above, here is an example tree created using a random half of the Iris Data Set with a test accuracy of 0.86667 on the other half:
         </p>
         <div class="captioned-image-div">
-            <img src="images/iris-tree.svg" alt="example discretised tree" width="50%" style="margin-left:25%;">
+            <img src="../images/iris-tree.svg" alt="example discretised tree" width="50%" style="margin-left:25%;">
             <p class="img-caption">Decision tree using information gain and virtual classes, trained on a random half of the data set.</p>
         </div>
     </div>
@@ -102,7 +102,7 @@
         Consider how the behaviour of the model changes with our choice of <i>k</i>. When <i>k</i> is 1, its lowest value, we are essentially asking "which training instance does this most resemble?" - intuitively, we are asking for the "closest" example we have seen. A form of partitioning is also at play here: each training example uniquely classifies instances in an area around it defined by how close it is to other examples. Instead of partitioning the data set, we are instead divvying the space of all possible instances itself. This is also referred to as a <i>Voronoi Tessellation</i>. In contrast with decision trees which divvy the instances one attribute at a time, the divvying of instances with kNN happens across all attributes (dimensions) simultaneously.
         </p>
         <div class="captioned-image-div">
-            <img src="images/voronoi.svg" alt="Voronoi Tessellation of instance space" width="40%" style="margin-left:30%;">
+            <img src="../images/voronoi.svg" alt="Voronoi Tessellation of instance space" width="40%" style="margin-left:30%;">
             <p class="img-caption">Voronoi Tessellation of 2-D instance space, with dashed lines showing class decision boundaries.</p>
         </div>
         <p>
@@ -147,11 +147,11 @@
         Neurons in this context are mathematical models of biological ones. They take in inputs from neurons below them, and as in biology, they <i>activate</i> and send out an output. An artificial neural network (ANN) is a collection of neurons wired together, typically organised into a layered structure as illustrated below. The final output layer has one neuron per class, and the output with the highest activation for a given instance is taken as its class. In the mathematical model, the inputs a neuron receives are weighted by some value and a constant bias is added to their sum. What seperates ANNs from the previous two models is that the activation function chosen is often a nonlinear function of this weighted sum - it's curved. The previous models had no way of truly representing curved boundaries between classes, as everything was based off of straight lines and dividers to try and seperate instances. Because the Iris Data Set is not linearly seperable, it was expected that the previous linear classifiers would be ill-equipped to properly handle its class boundaries. But with using curved activation functions, as well as increasing the number of layers within the layer, it is proven that an ANN can faithfully represent any class boundary.
         </p>
         <div class="captioned-image-div">
-            <img src="images/ann-example.svg" alt="example artificial neural network" width="40%" style="margin-left:30%;">
+            <img src="../images/ann-example.svg" alt="example artificial neural network" width="40%" style="margin-left:30%;">
             <p class="img-caption">Example ANN with input and output layers of 3 neurons each, and a single hidden layer of 2 neurons. Each layer is fully connected to the next.</p>
         </div>
         <div class="captioned-image-div">
-            <img src="images/sigmoid.svg" alt="example artificial neural network" width="40%" style="margin-left:30%;">
+            <img src="../images/sigmoid.svg" alt="example artificial neural network" width="40%" style="margin-left:30%;">
             <p class="img-caption">Graph of the sigmoid function, one of the most popular activation functions used in neural networks. It uses a non-linear mapping from inputs to outputs.</p>
         </div>
         <p>
@@ -160,7 +160,7 @@
         Or at least it's meant to signal that, but the reality is much messier. Considering the graph below, there are 3 values for <i>x</i> that produce a gradient of 0. Only one of them is a minimum of the error, one being a plateau or region of no change and the other being a maximum. If we started the algorithm with <i>x</i> = 3, then it is possible we would terminate upon reaching the plateau at <i>x</i> = 4.8. The strategy used here to resolve this is by modelling momentum in the updates of weights: by imagining the value of <i>x</i> as being a ball, we can see that it would build up speed on its way down and pass right through the plateau, eventually settling in the true minimum. Real-world examples are not this easily analysable and may contain multiple minima (of which only one is the ideal), but the momentum method is shown to work extremely well in practice.
         </p>
         <div class="captioned-image-div">
-            <img src="images/error-graph.svg" alt="graph showing how error changes with x" width="40%" style="margin-left:30%;">
+            <img src="../images/error-graph.svg" alt="graph showing how error changes with x" width="40%" style="margin-left:30%;">
             <p class="img-caption">There are 3 points of 0 gradient, but only 1 is a global minimum.</p>
         </div>
         <p>
