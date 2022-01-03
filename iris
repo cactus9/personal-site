@@ -8,7 +8,7 @@
         <link rel="icon" type="image/x-icon" href="images/favicon.svg">
         <style media="screen">
             .header {
-                background-image: url("images/irisbackdrop.png");
+                background-image: url("images/irisbackdrop.jpg");
                 background-position: center;
                 background-repeat: no-repeat;
                 background-size: cover;
@@ -18,7 +18,7 @@
             }
         </style>
         <meta name="og:title" content="Exploring Machine Learning Models with the Iris Data Set" />
-        <meta name="og:image" content="images/irisbackdrop.png">
+        <meta name="og:image" content="images/irisbackdrop.jpg">
         <meta name="og:type" content="article">
     </head>
     <body>
