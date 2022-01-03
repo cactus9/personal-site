@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    margin-bottom:25%;
+    margin-bottom:40vh;
 }
 
 .article {
@@ -12,10 +12,25 @@ body {
 
 .header {
     color: white;
-    height: 40vh;
+    height: auto;
     background-color: black;
     margin-bottom: 10vh;
     display: grid;
+}
+
+#home-button {
+    position:fixed;
+    margin:20px;
+}
+
+#home-button img {
+    width: max(6vw, 100px);
+    filter: saturate(0%) drop-shadow(0px 0px 3px black);
+    transition: filter 0.3s ease-out;
+}
+
+#home-button img:hover {
+    filter: saturate(100%) drop-shadow(0px 0px 5px black);
 }
 
 h1,h2,h3 {
@@ -31,9 +46,14 @@ h1,h2,h3 {
 }
 
 .header h1 {
-    margin: 0;
+    margin-top: max(80px, 15vh);
+    margin-bottom: max(80px, 15vh);
+    margin-left: max(20px, 8vw);
+    margin-right: max(20px, 8vw);
+    text-align: center;
     place-self: center;
     font-size: 60px;
+    filter: drop-shadow(0px 0px 20px black);
 }
 
 .img-caption {

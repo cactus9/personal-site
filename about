@@ -8,6 +8,7 @@
         <link rel="icon" type="image/x-icon" href="images/favicon.svg">
     </head>
     <body>
+        <a href="./" id="home-button"><img src="images/favicon.svg" title="Home"></a>
         <div class="content">
             <img src="images/mepic.jpg" alt="a beautiful picture of me" id="me">
             <div id="contact">

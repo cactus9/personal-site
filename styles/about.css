@@ -1,11 +1,6 @@
 body {
     margin: 0;
     height: 100vh;
-    font-family:sans-serif;
-    font-size:18px;
-    padding-left:25%;
-    padding-right:25%;
-    overflow: hidden;
 }
 
 h1,h2,h3 {
@@ -16,12 +11,17 @@ h1 {
     font-size: 48px;
 }
 .content {
-    width: 100%;
+    width: 50%;
+    margin-left:25%;
+    margin-right:25%;
     display:grid;
     grid-template-columns: 1fr 1fr;
     grid-auto-rows: auto;
     height: fit-content;
-    padding-top: 15%;
+    padding-top: 15vh;
+    font-family:sans-serif;
+    font-size:18px;
+    overflow: hidden;
 }
 
 #me {
@@ -70,4 +70,19 @@ h1 {
 .fill-text a:hover{
     color: white;
     background-color: black;
+}
+
+#home-button {
+    position:fixed;
+    margin:20px;
+}
+
+#home-button img {
+    width: max(6vw, 100px);
+    filter: saturate(0%) drop-shadow(0px 0px 3px black);
+    transition: filter 0.3s ease-out;
+}
+
+#home-button img:hover {
+    filter: saturate(100%) drop-shadow(0px 0px 5px black);
 }
