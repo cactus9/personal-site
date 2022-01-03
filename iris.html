@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Iris project</title>
+        <link rel="stylesheet" href="styles/fonts.css">
+        <link rel="stylesheet" href="styles/article.css">
+        <link rel="icon" type="image/x-icon" href="images/favicon.svg">
+        <style media="screen">
+            .header {
+                background-image: url("images/irisbackdrop.png");
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+            .header h1{
+                filter: drop-shadow(0px 0px 20px black);
+            }
+        </style>
+        <meta name="og:title" content="Exploring Machine Learning Models with the Iris Data Set" />
+        <meta name="og:image" content="images/irisbackdrop.png">
+        <meta name="og:type" content="article">
+    </head>
+    <body>
+
+<div class="header">
+    <h1>Exploring Machine Learning Models with the Iris Data Set</h1>
+</div>
+<div class="article">
+    <div id="introduction">
+        <h2>Introduction</h2>
+        <p>
+        In preparation for my third year at university, in the Summer of 2021 I read through Tom Mitchell's 1997 textbook <i>Machine Learning</i>. Despite being written in the 90s the book covers machine learning techniques that are employed in industry today, and it provided me a thorough introduction to the foundations of the field.
+        <br><br>
+        While I have tried to stay away from equations and technical jargon on this page, there are a handful of terms that I can't really avoid using and that benefit from a proper definition. So before we dive in, some vocabulary:
+        </p>
+        <ul>
+            <li><b>Machine learning</b> - a machine is said to <i>"learn"</i> if it improves at a task as it gains experience.</li>
+            <li>(Machine learning) <b>model</b> - the algorithm and data structures used to actually achieve this learning.</li>
+            <li><b>Instance</b> - a single object from the data set you are using. For example, if your data set is country demographics then an instance would be the demographics for a single country.</li>
+            <li><b>Classification</b> - attempting to correctly predict the <i>"class"</i> of a given instance. To use the countries example again, the class of a country instance might be the continent it is on.</li>
+        </ul>
+        <p>
+        In order to solidify my understanding of what I had read in the Mitchell textbook, I have implemented from scratch 3 classification models that were introduced: decision trees, <i>k</i>-nearest-neighbours, and artificial neural networks. Below are explanations of how these models work and their behaviour, using the Iris Data Set as example data for all three.
+        <br><br>Speaking of which,
+        </p>
+
+        <div id="iris-introduction">
+            <h3>The Iris Data Set</h3>
+            <p>
+            The <a href="https://archive.ics.uci.edu/ml/datasets/iris">Iris Data Set</a> is a classic set of data records that is widely used to demonstrate various machine learning principles. It is made up of various measurements for 150 iris flowers, 50 from each of the species <i>Iris versicolor</i>, <i>Iris virginica</i>, and <i>Iris setosa</i>. The measurements taken are the sepal height (SH), sepal width (SW), petal height (PH), and petal width (PW).
+            </p>
+            <div class="captioned-image-div">
+                <img src="images/iris-diagram-clean.svg" alt="diagram of iris measurements" width="40%" style="margin-left:30%;">
+                <p class="img-caption">Vertical view of an iris showing the locations of measurements used in the Iris Data Set</p>
+            </div>
+            <p>
+            150 examples is not a lot, and as we'll see later this leads to limitations with model selection and design. But even with this reduced data set there are still some challenges with properly classifying instances - in our case the classes of our instances are the 3 species of iris considered. The biggest issue at play is that the 3 classes are not <i>linearly seperable</i>. Let's say that you don't need to predict all the classes properly, but instead just know if an instance's class is "SPECIES-X" or "NOT-SPECIES-X". If you were to try and plot the instances you would need 4-dimensional space to capture all the measurements. To classify them you might wish to draw a straight line (or in this case a hyperplane but whatever) that would cleanly seperate all the instances in this space into the two target categories. But for this data set it is actually impossible to draw these lines for each SPECIES-X, as natural variances in the flowers lead to edge cases overlapping, so we say that the data is not linearly seperable.
+            </p>
+        </div>
+    </div>
+    <div id="decision-trees">
+        <h2>Decision Trees</h2>
+        <p>
+        The 21-Questions of machine learning, the classic decision tree is a simpler version of a flow chart without loops. At each node an attribute (measurement) of the instance is considered, and child nodes are constructed for each possible outcome of that consideration - a child node per value the attribute could take. If at a given node all instances in the training data that reach it have the same class, we can stop there and return their class as our final classification. If we have run out of attributes to consider, then we return the most common classification of instances that reach that node. If we still have attributes left to consider and we have not completely seperated our instances, then we choose an attribute to ask questions about and go from there.
+        </p>
+        <div class="captioned-image-div">
+            <img src="images/example-tree.svg" alt="example decision tree with dataset" width="60%" style="margin-left:20%;">
+            <p class="img-caption"><i>Sample data set and a possible decision tree for it. The "Name" attribute is not considered when building the tree.</i></p>
+        </div>
+        <p>
+        The above explanation gives a general idea of what a decision tree is and the basis of how an algorithm might construct one. However, there's an important piece of information missing. If you were to actually try and build a decision tree for a given data set, would need a root node and a first attribute to select, but which attribute should that be? Putting it a bit more formally, how do we evaluate attributes of the data at non-terminal nodes?
+        <br><br>
+        There are a couple of metrics available, but the most commonly used one comes from information theory. The point of asking a question is (arguably) to gain knowledge, so seeing as we want to ask the best questions we'll want to gain the most information. Every time you ask a question, notice that you partition the data set among the child nodes, with the eventual goal to have partitions that only contain instances of the same class. If every instance in a set does have the same class, then you don't have to store class information for each of them - you just label the set itself. Compare this to when you have a set of two instances (A and B) of different classes - you would need at least 1 bit to describe the class of an instance in the set (e.g. 0 if it has A's class, 1 otherwise). The theoretical number of bits needed to describe the class of a given instance in a set is referred to as the entropy of the set. We can find information gain by considering the entropy of the set before and after it is partitioned, and at each node we can choose the attibute that gives us the highest information gain when we partition the set on it.
+        <br><br>
+        One thing to note about using information gain is that outside of the calculated entropies it does not favour one attribute over another. Because of this, real-world knowledge about the data may not necessarily be reflected in the resulting tree. Consider our toy countries example - let's say that there were another 50 entries, but by chance the only "High" countries were in Europe. It's very possible that this would lead the tree to select population as the first attribute to partition the data on, as the entropy of the "High" set on partitioning would be 0. This would imply that our model of the real world thinks population size is the most important metric for determining country location, which is of course not representative of the real world - there are plenty of highly populated countries outside of Europe, and there are several tiny and moderately-sized countries within it.
+        <br><br>
+        The problem is that our model is tailored too closely to our training data and it "hallucinates" structures within the data set that aren't really there. We refer to this as <i>overfitting</i>, and it is an issue models throughout the field have to combat. The tell-tale sign of it is that while the accuracy of a model in training increases, its test accuracy starts to decrease after a certain point. There are techniques to help avoid overfitting, such as regularisation and halting training on accuracy thresholds, but an issue with the Iris Data Set specifically is that overfitting is rife among smaller data sets - the smaller the set, the more likely it will vary from a representative sample of the real world, and so the more likely the model will learn patterns from it that would not necessarily exist in a larger sample.
+        </p>
+        <h3>Continuous Domains</h3>
+        <p>
+        That's not the only issue with the Iris Data Set here, of course. In our description of how a decision tree is constructed, we stated that child nodes are created for each possible value of the attibute considered. This works well for attributes with a discrete domain (the number of values is limited), but all the attributes for the Iris set are real numbers and are therefore continuous (an infinite domain, as there's an infinity of numbers). How do you create a child node for every possible outcome?
+        <br><br>
+        Well, obviously our data set is finite, so we could just ignore any values for the attribute that do not appear in the data set, <i>discretising</i> the attribute. However there are two major problems with this approach. Firstly, consider a data set with 1 million entries and with the continuous attribute - let's say temperature - measured to <i>x</i> decimal places. Intuitively, we can see that as <i>x</i> increases, the likelihood that any two instances will share the value for that attribute is probably going to decrease. At a certain level of precision it may very well be that every instance has a unique value and therefore would be put into its own child node, which would mean that you would 1 million child nodes. Not terribly efficient. This leads into the second issue - what if the test instance has a value for the attribute not shared by any instance in the training data? The tree has no defined branch for it. Maybe you could try rounding it to the nearest value that appears in the dataset, but consider how information gain will favour this attribute above all others - this node lead to a partition of one instance and therefore only contains one class and thus has an entropy of 0, so this is practically guaranteed to be the first (and only) attribute considered. It won't matter what any other attribute's values are just because of the data-type used for this one. Again, this leads to severe overfitting in our decision tree.
+        </p>
+        <div class="captioned-image-div">
+            <img src="images/overfit-tree.svg" alt="example discretised tree" width="70%" style="margin-left:15%;">
+            <p class="img-caption">Sample data set with average temperature, discretised. Say one day you record a temperature of 17C in Kenya - the rounding tree will ignore the much more important language information and claim you are in France!</p>
+        </div>
+        <p>
+        The solution employed by the C4.5 algorithm is to replace the continuous attribute a virtual one with two values - one for all instances above some threshold, one for those below. The actual threshold is selected from the values present in the dataset, and is again chosen based on information gain. You could imagine this as augmenting the set of attributes considered with these virtual attributes, the difference that these virtual ones are not carried down when contructing the next node.
+        <br><br>
+        Using all the techniques described above, here is an example tree created using a random half of the Iris Data Set with a test accuracy of 0.86667 on the other half:
+        </p>
+        <div class="captioned-image-div">
+            <img src="images/iris-tree.svg" alt="example discretised tree" width="50%" style="margin-left:25%;">
+            <p class="img-caption">Decision tree using information gain and virtual classes, trained on a random half of the data set.</p>
+        </div>
+    </div>
+    <div id="knn">
+        <h2><i>k</i>-Nearest-Neighbours</h2>
+        <p>
+        <i>k</i>-nearest-neighbours (kNN) is one of the simplest models to describe and implement, but it offers some interesting insights into how we conceptualise machine learning. In kNN, you represent each instance as a point in Euclidean space (i.e. you plot them). To find the classification of a test instance, you pick an integer <i>k</i> and consider the nearest <i>k</i> points to the test instance in the model's space, returning the most popular class among them as the classification.
+        <br><br>
+        Consider how the behaviour of the model changes with our choice of <i>k</i>. When <i>k</i> is 1, its lowest value, we are essentially asking "which training instance does this most resemble?" - intuitively, we are asking for the "closest" example we have seen. A form of partitioning is also at play here: each training example uniquely classifies instances in an area around it defined by how close it is to other examples. Instead of partitioning the data set, we are instead divvying the space of all possible instances itself. This is also referred to as a <i>Voronoi Tessellation</i>. In contrast with decision trees which divvy the instances one attribute at a time, the divvying of instances with kNN happens across all attributes (dimensions) simultaneously.
+        </p>
+        <div class="captioned-image-div">
+            <img src="images/voronoi.svg" alt="Voronoi Tessellation of instance space" width="40%" style="margin-left:30%;">
+            <p class="img-caption">Voronoi Tessellation of 2-D instance space, with dashed lines showing class decision boundaries.</p>
+        </div>
+        <p>
+        As <i>k</i> increases, we start to see partitions that contain training instances with different classes. This has the effect of controlling for random variation within the training data set, as an instance of class A no longer creates an out-of-place hole in an area otherwise populated by instances of class B. This property can be selected for based on prior knowledge of the data. Once <i>k</i> takes on it's maximal value, that of the size of the training set, the entire instance space shares the same classification. In terms of the entropy of these partitions, the entropy increases with k, from 0 to the entropy of the training set itself. Here we see that there is a trade-off between entropy (and accuracy) and controlling for variance, another recurring idea in machine learning.
+        <br><br>
+        If this is a machine learning model, when did the learning happen? Previously we defined learning as improving at a task as experience increases, but what exactly was experienced? In the case of decision trees, we could continue the logic of information gain and roughly say that we learn every time we partition the data set - our experiences are the questions we ask. For kNN we partition the data set all at once, so does that mean we learn all at once? Well, another way to define learning is as the search for the final model. Consider the space/set/whathaveyou of all possible decision trees for the Iris Data Set. With our algorithm, we gradually reduce the size of the subspace that we consider for our final tree each time we add another node and ask another question. As for kNN, the space we search over is this shattering of the instance space, each instance adding another shard and narrowing down the possible partitions we could end up with. With this way of looking at it, we can see that storing the data itself was the learning. This makes sense, as the more data we have the more likely we are to have a representative sample of the instance space and so the higher our accuracy will be - our accuracy improves wih experience just as the definition of machine learning requires. We construct our model implicitly, rather than the explicit way we constructed decision trees, but we still construct it just the same.
+        <br><br>
+        There are a few ways to improve the kNN algorithm, the one explored here being that of centering the training instances before plotting them. Consider a dataset of 2 attributes and a class label. Say the values of the first attribute range from 0 to 1, but those of the second range from 0 to 100. A change in value in the second attribute is going to affect the distance from one instance to another far more than a change in the first one, unduly dictating how the instance space is partitioned just by virtue of being measured in a certian way. In order to ensure that attributes are evenly weighted, we work out the means and standard deviations of all attributes in the training set and center each datapoint, subtracting the mean and dividing by the standard deviation for each attribute. Visually, this is like moving points on a graph to be clustered around the origin and changing the scales of the axes to make things more even.
+        <br><br>
+        With a random half of the Iris Data Set used for training and the other half used for testing, I considered the values of <i>k</i> between 1 and 5 to see how it affected accuracy. Additionally, I employed the centering method described above. Here are my results:
+        </p>
+        <table>
+          <tr>
+            <th>Value of <i>k</i></th>
+            <th>Accuracy</th>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>0.86667</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>0.84</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>0.78667</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>0.77333</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>0.74667</td>
+          </tr>
+        </table>
+    </div>
+    <div id="ann">
+        <h2>Artificial Neural Networks</h2>
+        <p>
+        Neurons in this context are mathematical models of biological ones. They take in inputs from neurons below them, and as in biology, they <i>activate</i> and send out an output. An artificial neural network (ANN) is a collection of neurons wired together, typically organised into a layered structure as illustrated below. The final output layer has one neuron per class, and the output with the highest activation for a given instance is taken as its class. In the mathematical model, the inputs a neuron receives are weighted by some value and a constant bias is added to their sum. What seperates ANNs from the previous two models is that the activation function chosen is often a nonlinear function of this weighted sum - it's curved. The previous models had no way of truly representing curved boundaries between classes, as everything was based off of straight lines and dividers to try and seperate instances. Because the Iris Data Set is not linearly seperable, it was expected that the previous linear classifiers would be ill-equipped to properly handle its class boundaries. But with using curved activation functions, as well as increasing the number of layers within the layer, it is proven that an ANN can faithfully represent any class boundary.
+        </p>
+        <div class="captioned-image-div">
+            <img src="images/ann-example.svg" alt="example artificial neural network" width="40%" style="margin-left:30%;">
+            <p class="img-caption">Example ANN with input and output layers of 3 neurons each, and a single hidden layer of 2 neurons. Each layer is fully connected to the next.</p>
+        </div>
+        <div class="captioned-image-div">
+            <img src="images/sigmoid.svg" alt="example artificial neural network" width="40%" style="margin-left:30%;">
+            <p class="img-caption">Graph of the sigmoid function, one of the most popular activation functions used in neural networks. It uses a non-linear mapping from inputs to outputs.</p>
+        </div>
+        <p>
+        The exact way that we choose the weights and biases for each neuron is found via an algorithm called <i>backpropagation</i>. The idea is that we find the error of the network on classifying a given instance and pass the error gradient back through the network to determine how each weight and bias should change to reduce it. Once we are sufficiently accurate, or the error gradient is 0, we stop the process. This is because it may not be possible to reduce the error itself all the way to 0, but if the gradient is 0 then this signals that no more improvement is possible with these weights.
+        <br><br>
+        Or at least it's meant to signal that, but the reality is much messier. Considering the graph below, there are 3 values for <i>x</i> that produce a gradient of 0. Only one of them is a minimum of the error, one being a plateau or region of no change and the other being a maximum. If we started the algorithm with <i>x</i> = 3, then it is possible we would terminate upon reaching the plateau at <i>x</i> = 4.8. The strategy used here to resolve this is by modelling momentum in the updates of weights: by imagining the value of <i>x</i> as being a ball, we can see that it would build up speed on its way down and pass right through the plateau, eventually settling in the true minimum. Real-world examples are not this easily analysable and may contain multiple minima (of which only one is the ideal), but the momentum method is shown to work extremely well in practice.
+        </p>
+        <div class="captioned-image-div">
+            <img src="images/error-graph.svg" alt="graph showing how error changes with x" width="40%" style="margin-left:30%;">
+            <p class="img-caption">There are 3 points of 0 gradient, but only 1 is a global minimum.</p>
+        </div>
+        <p>
+        Going through the data set, making small adjustments to our weights to gradually reduce the error, is our learning process. Characterising learning as search, we are searching through the space of all possible weight assignments. Another space we can search through is the size of the network we actually use - the more neurons and hidden layers we have, the higher our training accuracy will be. But, as we have more weights to optimise we also have more chances to overfit to patterns not present in the greater data distribution. In practice, the behaviour of large networks trained on small data sets is that they memorise each individual instance without properly learning the underlying patterns, and for this reason (as well as space efficiency) smaller networks are often preferred. Another reason to prefer smaller networks is that this is by far the hardest model to interpret the behaviour of. For example, if I tell you the weights of a neuron are 0.5, 3.4, 1.432 with a bias of -0.8, what does that mean? You would have to consider it in the context of the entire network which may include hundreds of neurons and weights in larger ones. Comparing this model against the other two, neural networks by far the most powerful of the three discussed, but they are also the furthest removed from what we can effectively reason about.
+        <br><br>
+        As an aside, there's a useful way to build intuition about why networks with more weights perform better in training. The error that we talked about when training the network can be extended to a more general cost function, one that takes in the weights of the network and outputs how badly it performs. If you were to graph the cost function over all the assignments of weights and biases, you could imagine this as a high-dimensional surface with our ball trying to find the lowest point it can. Note that if the ball is at a local minimum in one dimension, the more other dimensions there are the more likely it will not be a local minumum in some other dimension. Because of this, it is less likely to get trapped in local minima early in training. On the flip side, more dimensions leads to more ways to overfit the training data, so again we have a trade-off.
+        <br><br>
+        For the purposes of this project, I used a sigmoid activation function with momentum updates. My network had an input layer of 4 neurons and an output layer of 3, and I searched over the size of a single hidden layer in the middle. The resultant accuracies are:
+        </p>
+        <table style="border:1px solid; border-collapse: collapse;border-spacing: 0px; margin:auto;">
+          <tr style="font-style:bold;">
+            <th style="border:1px solid;padding:5px;">Size of hidden layer</th>
+            <th style="border:1px solid;padding:5px;">Accuracy</th>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>0.23333</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>0.94667</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>0.94667</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>0.96</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>0.96</td>
+          </tr>
+        </table>
+    </div>
+    <div id="final-thoughts">
+        <h2>Final Thoughts</h2>
+        <p>
+        These three models are just a sample of those used in machine learning but still offer a broad view of the techniques available, and despite their simplicity they still produce respectable results. They vary not only on the spaces they search to produce their final model, but also on how they interpret what it means to "<i>learn</i>". As for my own experience in implementing these from scratch, kNN and decision trees were of course the easiest to actually code by hand, with kNN only taking an afternoon to get working correctly. Getting a functional version of the ANNs with all the bells and whistles took much longer, despite my familiarity with the math behind them. ANNs are ubiquitous in industry however, and there are a multitude of free code libraries available to implement them (Tensorflow, Pytorch, etc.). Due to their flexibilty in what they can handle and their inhuman efficiency in exploiting patterns in data, it's not a real surprise to me that the ANNs consistently produced the best results in this project across random restarts. I was personally surprised by the effectiveness of kNN, as I had thought it too simplistic to actually account for variability within the data set. I imagine that kNNs effectiveness might depend on the actual data set you give it, whereas ANNs can work with pretty much anything.
+        <br><br>
+        All of the code used for this project is available on my <a href="https://github.com/cactus9/iris-project">GitHub</a>. All images are my own.
+        <br><br>
+        Thank you for reading!
+        </p>
+    </div>
+</div>
+
+    </body>
+</html>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="109.82211mm"
+   height="109.82211mm"
+   viewBox="0 0 109.82211 109.82211"
+   version="1.1"
+   id="svg5"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs2">
+    <linearGradient
+       id="linearGradient4937">
+      <stop
+         style="stop-color:#000000;stop-opacity:1"
+         offset="0"
+         id="stop4933" />
+      <stop
+         style="stop-color:#7c5400;stop-opacity:1"
+         offset="1"
+         id="stop4935" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient2427">
+      <stop
+         style="stop-color:#e22600;stop-opacity:1"
+         offset="0"
+         id="stop2423" />
+      <stop
+         style="stop-color:#ffff00;stop-opacity:1"
+         offset="1"
+         id="stop2425" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient1133">
+      <stop
+         style="stop-color:#ff8200;stop-opacity:1"
+         offset="0"
+         id="stop1129" />
+      <stop
+         style="stop-color:#fffd00;stop-opacity:1"
+         offset="1"
+         id="stop1131" />
+    </linearGradient>
+    <radialGradient
+       xlink:href="#linearGradient1133"
+       id="radialGradient1135"
+       cx="222.99193"
+       cy="266.27597"
+       fx="222.99193"
+       fy="266.27597"
+       r="207.01807"
+       gradientTransform="matrix(1,0,0,0.99712999,0,0.76421541)"
+       gradientUnits="userSpaceOnUse" />
+    <radialGradient
+       xlink:href="#linearGradient2427"
+       id="radialGradient1135-8"
+       cx="222.99193"
+       cy="266.27597"
+       fx="222.99193"
+       fy="266.27597"
+       r="207.01807"
+       gradientTransform="matrix(0.87633173,-0.01994521,0.0179415,0.78829493,22.799637,60.819594)"
+       gradientUnits="userSpaceOnUse" />
+    <radialGradient
+       xlink:href="#linearGradient4937"
+       id="radialGradient4939"
+       cx="60.285545"
+       cy="59.604351"
+       fx="60.285545"
+       fy="59.604351"
+       r="26.566513"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.96153848,0,0,0.96153848,2.3186748,2.2924751)" />
+  </defs>
+  <g
+     id="layer1"
+     transform="translate(-5,-4.9999996)">
+    <path
+       style="fill:url(#radialGradient1135);fill-opacity:1;stroke:none;stroke-width:20.0013;stroke-miterlimit:4;stroke-dasharray:none;paint-order:fill markers stroke"
+       id="path846"
+       d="m 314.98779,372.11785 0.44663,81.74398 -64.99105,-49.58266 -40.48519,71.01568 -31.49257,-75.43537 -70.56905,41.25879 10.44432,-81.07523 -81.743983,0.44663 49.582657,-64.99105 -71.015677,-40.48519 75.435364,-31.49257 -41.258783,-70.56905 81.075222,10.44432 -0.44663,-81.74398 64.99105,49.58266 40.4852,-71.015681 31.49257,75.435361 70.56904,-41.25878 -10.44431,81.07523 81.74398,-0.44663 -49.58266,64.99104 71.01568,40.4852 -75.43537,31.49257 41.25878,70.56905 z"
+       transform="matrix(0.26458333,0,0,0.26458333,0.98789098,-10.932978)" />
+    <path
+       style="fill:url(#radialGradient1135-8);fill-opacity:1;stroke:none;stroke-width:20.0013;stroke-miterlimit:4;stroke-dasharray:none;paint-order:fill markers stroke"
+       id="path846-8"
+       transform="matrix(0.23106755,0.06192186,-0.06192186,0.23106755,26.099894,-15.662781)"
+       d="m 314.98779,372.11785 0.44663,81.74398 -64.99105,-49.58266 -40.48519,71.01568 -31.49257,-75.43537 -70.56905,41.25879 10.44432,-81.07523 -81.743983,0.44663 49.582657,-64.99105 -71.015677,-40.48519 75.435364,-31.49257 -41.258783,-70.56905 81.075222,10.44432 -0.44663,-81.74398 64.99105,49.58266 40.4852,-71.015681 31.49257,75.435361 70.56904,-41.25878 -10.44431,81.07523 81.74398,-0.44663 -49.58266,64.99104 71.01568,40.4852 -75.43537,31.49257 41.25878,70.56905 z" />
+    <circle
+       style="fill:url(#radialGradient4939);fill-opacity:1;stroke:none;stroke-width:4.78194;stroke-miterlimit:4;stroke-dasharray:none;paint-order:fill markers stroke"
+       id="path3665"
+       cx="60.285545"
+       cy="59.604351"
+       r="25.544724" />
+  </g>
+</svg>
