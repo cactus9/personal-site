@@ -5,7 +5,7 @@ body {
 
 .article {
     font-family:sans-serif;
-    font-size:18px;
+    font-size:20px;
     margin-left:20%;
     margin-right:20%;
 }
@@ -19,7 +19,7 @@ body {
 }
 
 #home-button {
-    position:fixed;
+    position:absolute;
     margin:20px;
 }
 
