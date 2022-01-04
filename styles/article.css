@@ -1,13 +1,12 @@
 body {
     margin: 0;
-    margin-bottom:40vh;
 }
 
 article {
     font-family:sans-serif;
-    font-size:20px;
-    margin-left:20%;
-    margin-right:20%;
+    font-size: min(20px, 5vw);
+    margin-left:5%;
+    margin-right:5%;
 }
 
 header {
@@ -18,19 +17,34 @@ header {
     display: grid;
 }
 
+footer {
+    height: 40vh;
+    width: 100%;
+    margin: 0;
+    margin-top: 10vh;
+}
+
 #home-button {
-    position:absolute;
-    margin:20px;
+    display: grid;
+    margin: 0;
+    width: 100%;
+    height: min(80px, 30vw);
+    text-decoration: none;
+    background-color: black;
 }
 
 #home-button img {
-    width: max(6vw, 100px);
-    filter: saturate(0%) drop-shadow(0px 0px 3px black);
-    transition: filter 0.3s ease-out;
+    display: none;
 }
 
-#home-button img:hover {
-    filter: saturate(100%) drop-shadow(0px 0px 5px black);
+#home-button p {
+    font-size: min(40px,10vw);
+    font-family: "Lato", sans-serif;
+    margin-top: auto;
+    margin-bottom: auto;
+    text-align: center;
+    color: white;
+    text-decoration: underline;
 }
 
 h1,h2,h3 {
@@ -63,14 +77,24 @@ header h1 {
     margin-right: max(20px, 8vw);
     text-align: center;
     place-self: center;
-    font-size: 60px;
-    filter: drop-shadow(0px 0px 20px black);
+    font-size: min(60px,15vw);
+    filter: drop-shadow(0px 0px 15px black);
+}
+
+figure {
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
+figure img {
+    width:100%;
+    max-height: 80vh;
 }
 
 figcaption {
     text-align:center;
     font-style: italic;
-    font-size: 18px;
+    font-size: min(18px, 4.5vw);
     margin-top: 10px;
 }
 
@@ -81,4 +105,48 @@ table {
 th {
     font-style:bold;
     border:1px solid;padding:5px;
+}
+
+@media only screen and (min-width: 750px)  {
+    article {
+        margin-left:10%;
+        margin-right:10%;
+    }
+}
+
+@media only screen and (min-width: 1000px)  {
+    article {
+        margin-left:20%;
+        margin-right:20%;
+    }
+    header h1 {
+        filter: drop-shadow(0px 0px 20px black);
+    }
+    figure img {
+        width:100%;
+        max-height: 40vh;
+    }
+
+    #home-button {
+        position:absolute;
+        margin:20px;
+        width: auto;
+        height: auto;
+        background-color: inherit;
+    }
+
+    #home-button p {
+        display: none;
+    }
+
+    #home-button img {
+        width: max(6vw, 100px);
+        display: block;
+        filter: saturate(0%) drop-shadow(0px 0px 3px black);
+        transition: filter 0.3s ease-out;
+    }
+
+    #home-button img:hover {
+        filter: saturate(100%) drop-shadow(0px 0px 5px black);
+    }
 }
