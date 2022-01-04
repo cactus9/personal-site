@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="../styles/article.css">
         <link rel="icon" type="image/x-icon" href="../images/favicon.svg">
         <style media="screen">
-            .header {
+            header {
                 background-image: url("../images/irisbackdrop.jpg");
                 background-position: center;
                 background-repeat: no-repeat;
@@ -20,10 +20,10 @@
     </head>
     <body>
 <a href="../" id="home-button"><img src="../images/favicon.svg" title="Home"></a>
-<div class="header">
+<header>
     <h1>Exploring Machine Learning Models with the Iris Data Set</h1>
-</div>
-<div class="article">
+</header>
+<article>
     <div id="introduction">
         <h2>Introduction</h2>
         <p>
@@ -47,10 +47,10 @@
             <p>
             The <a href="https://archive.ics.uci.edu/ml/datasets/iris">Iris Data Set</a> is a classic set of data records that is widely used to demonstrate various machine learning principles. It is made up of various measurements for 150 iris flowers, 50 from each of the species <i>Iris versicolor</i>, <i>Iris virginica</i>, and <i>Iris setosa</i>. The measurements taken are the sepal height (SH), sepal width (SW), petal height (PH), and petal width (PW).
             </p>
-            <div class="captioned-image-div">
+            <figure>
                 <img src="../images/iris-diagram-clean.svg" alt="diagram of iris measurements" width="40%" style="margin-left:30%;">
-                <p class="img-caption">Vertical view of an iris showing the locations of measurements used in the Iris Data Set</p>
-            </div>
+                <figcaption>Vertical view of an iris showing the locations of measurements used in the Iris Data Set</figcaption>
+            </figure>
             <p>
             150 examples is not a lot, and as we'll see later this leads to limitations with model selection and design. But even with this reduced data set there are still some challenges with properly classifying instances - in our case the classes of our instances are the 3 species of iris considered. The biggest issue at play is that the 3 classes are not <i>linearly seperable</i>. Let's say that you don't need to predict all the classes properly, but instead just know if an instance's class is "SPECIES-X" or "NOT-SPECIES-X". If you were to try and plot the instances you would need 4-dimensional space to capture all the measurements. To classify them you might wish to draw a straight line (or in this case a hyperplane but whatever) that would cleanly seperate all the instances in this space into the two target categories. But for this data set it is actually impossible to draw these lines for each SPECIES-X, as natural variances in the flowers lead to edge cases overlapping, so we say that the data is not linearly seperable.
             </p>
@@ -61,10 +61,10 @@
         <p>
         The 21-Questions of machine learning, the classic decision tree is a simpler version of a flow chart without loops. At each node an attribute (measurement) of the instance is considered, and child nodes are constructed for each possible outcome of that consideration - a child node per value the attribute could take. If at a given node all instances in the training data that reach it have the same class, we can stop there and return their class as our final classification. If we have run out of attributes to consider, then we return the most common classification of instances that reach that node. If we still have attributes left to consider and we have not completely seperated our instances, then we choose an attribute to ask questions about and go from there.
         </p>
-        <div class="captioned-image-div">
+        <figure>
             <img src="../images/example-tree.svg" alt="example decision tree with dataset" width="60%" style="margin-left:20%;">
-            <p class="img-caption"><i>Sample data set and a possible decision tree for it. The "Name" attribute is not considered when building the tree.</i></p>
-        </div>
+            <figcaption><i>Sample data set and a possible decision tree for it. The "Name" attribute is not considered when building the tree.</i></figcaption>
+        </figure>
         <p>
         The above explanation gives a general idea of what a decision tree is and the basis of how an algorithm might construct one. However, there's an important piece of information missing. If you were to actually try and build a decision tree for a given data set, would need a root node and a first attribute to select, but which attribute should that be? Putting it a bit more formally, how do we evaluate attributes of the data at non-terminal nodes?
         <br><br>
@@ -80,19 +80,19 @@
         <br><br>
         Well, obviously our data set is finite, so we could just ignore any values for the attribute that do not appear in the data set, <i>discretising</i> the attribute. However there are two major problems with this approach. Firstly, consider a data set with 1 million entries and with the continuous attribute - let's say temperature - measured to <i>x</i> decimal places. Intuitively, we can see that as <i>x</i> increases, the likelihood that any two instances will share the value for that attribute is probably going to decrease. At a certain level of precision it may very well be that every instance has a unique value and therefore would be put into its own child node, which would mean that you would 1 million child nodes. Not terribly efficient. This leads into the second issue - what if the test instance has a value for the attribute not shared by any instance in the training data? The tree has no defined branch for it. Maybe you could try rounding it to the nearest value that appears in the dataset, but consider how information gain will favour this attribute above all others - this node lead to a partition of one instance and therefore only contains one class and thus has an entropy of 0, so this is practically guaranteed to be the first (and only) attribute considered. It won't matter what any other attribute's values are just because of the data-type used for this one. Again, this leads to severe overfitting in our decision tree.
         </p>
-        <div class="captioned-image-div">
+        <figure>
             <img src="../images/overfit-tree.svg" alt="example discretised tree" width="70%" style="margin-left:15%;">
-            <p class="img-caption">Sample data set with average temperature, discretised. Say one day you record a temperature of 17C in Kenya - the rounding tree will ignore the much more important language information and claim you are in France!</p>
-        </div>
+            <figcaption>Sample data set with average temperature, discretised. Say one day you record a temperature of 17C in Kenya - the rounding tree will ignore the much more important language information and claim you are in France!</figcaption>
+        </figure>
         <p>
         The solution employed by the C4.5 algorithm is to replace the continuous attribute a virtual one with two values - one for all instances above some threshold, one for those below. The actual threshold is selected from the values present in the dataset, and is again chosen based on information gain. You could imagine this as augmenting the set of attributes considered with these virtual attributes, the difference that these virtual ones are not carried down when contructing the next node.
         <br><br>
         Using all the techniques described above, here is an example tree created using a random half of the Iris Data Set with a test accuracy of 0.86667 on the other half:
         </p>
-        <div class="captioned-image-div">
+        <figure>
             <img src="../images/iris-tree.svg" alt="example discretised tree" width="50%" style="margin-left:25%;">
-            <p class="img-caption">Decision tree using information gain and virtual classes, trained on a random half of the data set.</p>
-        </div>
+            <figcaption>Decision tree using information gain and virtual classes, trained on a random half of the data set.</figcaption>
+        </figure>
     </div>
     <div id="knn">
         <h2><i>k</i>-Nearest-Neighbours</h2>
@@ -101,10 +101,10 @@
         <br><br>
         Consider how the behaviour of the model changes with our choice of <i>k</i>. When <i>k</i> is 1, its lowest value, we are essentially asking "which training instance does this most resemble?" - intuitively, we are asking for the "closest" example we have seen. A form of partitioning is also at play here: each training example uniquely classifies instances in an area around it defined by how close it is to other examples. Instead of partitioning the data set, we are instead divvying the space of all possible instances itself. This is also referred to as a <i>Voronoi Tessellation</i>. In contrast with decision trees which divvy the instances one attribute at a time, the divvying of instances with kNN happens across all attributes (dimensions) simultaneously.
         </p>
-        <div class="captioned-image-div">
+        <figure>
             <img src="../images/voronoi.svg" alt="Voronoi Tessellation of instance space" width="40%" style="margin-left:30%;">
-            <p class="img-caption">Voronoi Tessellation of 2-D instance space, with dashed lines showing class decision boundaries.</p>
-        </div>
+            <figcaption>Voronoi Tessellation of 2-D instance space, with dashed lines showing class decision boundaries.</figcaption>
+        </figure>
         <p>
         As <i>k</i> increases, we start to see partitions that contain training instances with different classes. This has the effect of controlling for random variation within the training data set, as an instance of class A no longer creates an out-of-place hole in an area otherwise populated by instances of class B. This property can be selected for based on prior knowledge of the data. Once <i>k</i> takes on it's maximal value, that of the size of the training set, the entire instance space shares the same classification. In terms of the entropy of these partitions, the entropy increases with k, from 0 to the entropy of the training set itself. Here we see that there is a trade-off between entropy (and accuracy) and controlling for variance, another recurring idea in machine learning.
         <br><br>
@@ -146,23 +146,23 @@
         <p>
         Neurons in this context are mathematical models of biological ones. They take in inputs from neurons below them, and as in biology, they <i>activate</i> and send out an output. An artificial neural network (ANN) is a collection of neurons wired together, typically organised into a layered structure as illustrated below. The final output layer has one neuron per class, and the output with the highest activation for a given instance is taken as its class. In the mathematical model, the inputs a neuron receives are weighted by some value and a constant bias is added to their sum. What seperates ANNs from the previous two models is that the activation function chosen is often a nonlinear function of this weighted sum - it's curved. The previous models had no way of truly representing curved boundaries between classes, as everything was based off of straight lines and dividers to try and seperate instances. Because the Iris Data Set is not linearly seperable, it was expected that the previous linear classifiers would be ill-equipped to properly handle its class boundaries. But with using curved activation functions, as well as increasing the number of layers within the layer, it is proven that an ANN can faithfully represent any class boundary.
         </p>
-        <div class="captioned-image-div">
+        <figure>
             <img src="../images/ann-example.svg" alt="example artificial neural network" width="40%" style="margin-left:30%;">
-            <p class="img-caption">Example ANN with input and output layers of 3 neurons each, and a single hidden layer of 2 neurons. Each layer is fully connected to the next.</p>
-        </div>
-        <div class="captioned-image-div">
+            <figcaption>Example ANN with input and output layers of 3 neurons each, and a single hidden layer of 2 neurons. Each layer is fully connected to the next.</figcaption>
+        </figure>
+        <figure>
             <img src="../images/sigmoid.svg" alt="example artificial neural network" width="40%" style="margin-left:30%;">
-            <p class="img-caption">Graph of the sigmoid function, one of the most popular activation functions used in neural networks. It uses a non-linear mapping from inputs to outputs.</p>
-        </div>
+            <figcaption>Graph of the sigmoid function, one of the most popular activation functions used in neural networks. It uses a non-linear mapping from inputs to outputs.</figcaption>
+        </figure>
         <p>
         The exact way that we choose the weights and biases for each neuron is found via an algorithm called <i>backpropagation</i>. The idea is that we find the error of the network on classifying a given instance and pass the error gradient back through the network to determine how each weight and bias should change to reduce it. Once we are sufficiently accurate, or the error gradient is 0, we stop the process. This is because it may not be possible to reduce the error itself all the way to 0, but if the gradient is 0 then this signals that no more improvement is possible with these weights.
         <br><br>
         Or at least it's meant to signal that, but the reality is much messier. Considering the graph below, there are 3 values for <i>x</i> that produce a gradient of 0. Only one of them is a minimum of the error, one being a plateau or region of no change and the other being a maximum. If we started the algorithm with <i>x</i> = 3, then it is possible we would terminate upon reaching the plateau at <i>x</i> = 4.8. The strategy used here to resolve this is by modelling momentum in the updates of weights: by imagining the value of <i>x</i> as being a ball, we can see that it would build up speed on its way down and pass right through the plateau, eventually settling in the true minimum. Real-world examples are not this easily analysable and may contain multiple minima (of which only one is the ideal), but the momentum method is shown to work extremely well in practice.
         </p>
-        <div class="captioned-image-div">
+        <figure>
             <img src="../images/error-graph.svg" alt="graph showing how error changes with x" width="40%" style="margin-left:30%;">
-            <p class="img-caption">There are 3 points of 0 gradient, but only 1 is a global minimum.</p>
-        </div>
+            <figcaption>There are 3 points of 0 gradient, but only 1 is a global minimum.</figcaption>
+        </figure>
         <p>
         Going through the data set, making small adjustments to our weights to gradually reduce the error, is our learning process. Characterising learning as search, we are searching through the space of all possible weight assignments. Another space we can search through is the size of the network we actually use - the more neurons and hidden layers we have, the higher our training accuracy will be. But, as we have more weights to optimise we also have more chances to overfit to patterns not present in the greater data distribution. In practice, the behaviour of large networks trained on small data sets is that they memorise each individual instance without properly learning the underlying patterns, and for this reason (as well as space efficiency) smaller networks are often preferred. Another reason to prefer smaller networks is that this is by far the hardest model to interpret the behaviour of. For example, if I tell you the weights of a neuron are 0.5, 3.4, 1.432 with a bias of -0.8, what does that mean? You would have to consider it in the context of the entire network which may include hundreds of neurons and weights in larger ones. Comparing this model against the other two, neural networks by far the most powerful of the three discussed, but they are also the furthest removed from what we can effectively reason about.
         <br><br>
@@ -207,7 +207,7 @@
         Thank you for reading!
         </p>
     </div>
-</div>
+</article>
 
     </body>
 </html>

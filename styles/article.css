@@ -3,14 +3,14 @@ body {
     margin-bottom:40vh;
 }
 
-.article {
+article {
     font-family:sans-serif;
     font-size:20px;
     margin-left:20%;
     margin-right:20%;
 }
 
-.header {
+header {
     color: white;
     height: auto;
     background-color: black;
@@ -37,15 +37,26 @@ h1,h2,h3 {
     font-family:'Lato', sans-serif;
 }
 
-.article h2{
+article h2{
     font-size: 36px;
 }
 
-.article h3 {
+article h3 {
     font-size: 24px;
 }
 
-.header h1 {
+article a {
+    text-decoration: underline none;
+    color: black;
+    transition: background-color 0.3s ease-out;
+}
+
+article a:hover {
+    color: white;
+    background-color: black;
+}
+
+header h1 {
     margin-top: max(80px, 15vh);
     margin-bottom: max(80px, 15vh);
     margin-left: max(20px, 8vw);
@@ -56,9 +67,11 @@ h1,h2,h3 {
     filter: drop-shadow(0px 0px 20px black);
 }
 
-.img-caption {
+figcaption {
     text-align:center;
     font-style: italic;
+    font-size: 18px;
+    margin-top: 10px;
 }
 
 table {
