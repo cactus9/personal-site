@@ -14,6 +14,7 @@ a {
 
 h1,h2,h3, #me {
     font-family:'Lato', sans-serif;
+    font-weight: 400;
     text-align: right;
 }
 
