@@ -12,7 +12,11 @@
     <body>
         <div class="content">
             <div class="scene">
-                <img src="images/iris.svg" alt="bearded iris drawing">
+                <div id="iris">
+                    <img src="images/iris.svg" alt="bearded iris drawing">
+                </div>
+
+                <img id="butterbod" src="images/butterbod.svg">
             </div>
             <div id="menu">
                 <p id="me">Evan Caton</p>
@@ -28,5 +32,17 @@
 
             </div>
         </div>
+    <script type="text/javascript">
+        var sceneBox = document.getElementById('iris').getBoundingClientRect();
+        console.log(sceneBox.top, sceneBox.right, sceneBox.bottom, sceneBox.left);
+        var sceneHeight = document.getElementById('iris').clientHeight;
+        var sceneWidth = document.getElementById('iris').clientWidth;
+        //position and scale everything before making it visible
+        //Scale
+        document.getElementById('butterbod').style.height = sceneHeight * 0.4 + "px";
+        //Position
+        document.getElementById('butterbod').style.top = sceneBox.top + sceneHeight * 0.55 + "px";
+        document.getElementById('butterbod').style.left = sceneBox.left + sceneWidth * 0.5 + "px";
+    </script>
     </body>
 </html>
