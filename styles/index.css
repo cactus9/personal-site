@@ -72,10 +72,10 @@ h1,h2,h3, #me {
     position: absolute;
     transform-style: preserve-3d;
     display: flex;
-    height: 20%;
+    height: 25%;
     width: 0;
-    top: 65%;
-    left: 30%;
+    top: 62%;
+    left: 23%;
 }
 #butterfly img {
     display: block;
