@@ -13,9 +13,9 @@
         <div class="content">
             <div class="scene">
                 <div id="butterfly">
-                    <img id="wing1" src="images/peacock-wing-1.svg" alt="wing">
-                    <img id="butterbod" src="images/butterbod.svg">
-                    <img id="wing2" src="images/peacock-wing-2.svg" alt="wing">
+                    <img id="wing1" src="images/orangetip-wing-1.svg" alt="wing">
+                    <img id="butterbod" src="images/orangetip-body.svg">
+                    <img id="wing2" src="images/orangetip-wing-2.svg" alt="wing">
                 </div>
                 <div id="iris">
                     <img src="images/iris.svg" alt="bearded iris drawing">
@@ -35,17 +35,5 @@
 
             </div>
         </div>
-    <script type="text/javascript">
-        var sceneBox = document.getElementById('iris').getBoundingClientRect();
-        console.log(sceneBox.top, sceneBox.right, sceneBox.bottom, sceneBox.left);
-        var sceneHeight = document.getElementById('iris').clientHeight;
-        var sceneWidth = document.getElementById('iris').clientWidth;
-        //position and scale everything before making it visible
-        //Scale
-        //document.getElementById('butterfly').style.height = sceneHeight * 0.2 + "px";
-        //Position
-        //document.getElementById('butterfly').style.top = sceneBox.top + sceneHeight * 0.6 + "px";
-        //document.getElementById('butterfly').style.left = sceneBox.left + sceneWidth * 0.3 + "px";
-    </script>
     </body>
 </html>
