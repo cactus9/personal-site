@@ -86,18 +86,17 @@ h1,h2,h3, #me {
     grid-column: 1;
     transform-origin: right;
     animation: 5s cubic-bezier(.46,.03,.52,.96) infinite forwards leftwing;
-    z-index: 5;
+    z-index: -5;
 }
 #butterbod {
     grid-column: 2;
-    z-index: -1;
     transform: translate(0,-20%);
 }
 #wing2 {
     grid-column: 3;
     transform-origin: center left;
     animation: 5s cubic-bezier(.46,.03,.52,.96) infinite forwards rightwing;
-    z-index: 5;
+    z-index: -5;
 }
 
 #butterfly {
