@@ -63,9 +63,6 @@ h1,h2,h3, #me {
     grid-column: 1;
     margin: min(2vw, 2vh);
     position: relative;
-    width: fit-content;
-    height: fit-content;
-
     perspective: 950px;
 }
 #butterfly {
@@ -142,15 +139,10 @@ h1,h2,h3, #me {
 
 #iris {
     place-self: center;
-    width: fit-content;
-    height: fit-content;
-    overflow: hidden;
+    display: grid;
     z-index: -5;
-}
-
-#iris img {
-    max-width: 90%;
-    max-height: 90%;
+    max-width: 100%;
+    max-height: 100%;
 }
 @media only screen and (min-width: 750px)  {
     /*Desktop-ish layout for homepage*/
