@@ -65,6 +65,37 @@ h1,h2,h3, #me {
     position: relative;
     perspective: 950px;
 }
+#butterbanner {
+    position: absolute;
+    display: grid;
+    grid-template-rows: 3fr 2fr;
+    background-color: #515151;
+    border-radius: 10%;
+    color: white;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 15%;
+    width: 45%;
+    filter: drop-shadow(0 1vh 0.5vh black);
+}
+#common-name {
+    margin: 0;
+    font-size: auto;
+    font-family: 'Lato', sans-serif;
+    text-align: center;
+    grid-row: 1;
+}
+#science-name {
+    margin: 0;
+    font-size: auto;
+    text-align: center;
+    grid-row: 2;
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    font-style: italic;
+}
 #butterfly {
     position: absolute;
     transform-style: preserve-3d;
