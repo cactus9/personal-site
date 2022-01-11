@@ -11,15 +11,29 @@
         <script type="text/javascript">
             let x = 0;
             let butterflies = ["peacock", "orangetip", "smalltort", "redadmiral"];
+            let common_names = ["Peacock", "Orange-tip", "Small Tortoiseshell", "Red Admiral"]
+            let science_names = ["Aglais io", "Anthocharis cardamines", "Aglais urticae", "Vanessa atalanta"]
 
             function changePic() {
+                //Set us up for another display
+                const banner = document.getElementById('butterbanner')
+                banner.classList.remove("banneranim");
+                //Increment the butterfly
                 x ++;
                 x %= butterflies.length;
 
                 document.getElementById('wing1').src = "images/" + butterflies[x] + "-wing-1.svg";
                 document.getElementById('butterbod').src = "images/" + butterflies[x] + "-body.svg";
                 document.getElementById('wing2').src = "images/" + butterflies[x] + "-wing-2.svg";
+                //Adjust the names
+                document.getElementById('common-name').innerHTML = common_names[x];
+                document.getElementById('science-name').innerHTML = science_names[x];
+                //Run the animation
+                void banner.offsetHeight;
+                banner.classList.toggle("banneranim");
             }
+
+
         </script>
     </head>
     <body>

@@ -65,20 +65,43 @@ h1,h2,h3, #me {
     position: relative;
     perspective: 950px;
 }
+@keyframes bannerfade {
+    from {
+        transform: translateY(100%);
+        opacity: 0%;
+    }
+    33% {
+        opacity: 100%;
+        transform: none;
+    }
+    75% {
+        opacity: 100%;
+        transform: none;
+    }
+    to {
+        transform: translateY(-100%);
+        opacity: 0%
+    }
+}
+.banneranim {
+    animation: bannerfade 2.75s;
+}
+
 #butterbanner {
     position: absolute;
     display: grid;
+    z-index: 10;
     grid-template-rows: 3fr 2fr;
     background-color: #515151;
     border-radius: 10%;
     color: white;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-left: 10px;
-    padding-right: 10px;
-    height: 15%;
-    width: 45%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    padding-left: 6%;
+    padding-right: 6%;
+    place-self: center;
     filter: drop-shadow(0 1vh 0.5vh black);
+    opacity: 0%;
 }
 #common-name {
     margin: 0;
