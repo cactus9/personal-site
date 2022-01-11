@@ -8,11 +8,47 @@
         <link rel="stylesheet" href="styles/index.css">
         <!-- Sunflowers are home -->
         <link rel="icon" type="image/x-icon" href="images/favicon.svg">
+        <script type="text/javascript">
+            let x = 0;
+            let butterflies = ["peacock", "orangetip", "smalltort", "redadmiral"];
+            let common_names = ["Peacock", "Orange-tip", "Small Tortoiseshell", "Red Admiral"]
+            let science_names = ["Aglais io", "Anthocharis cardamines", "Aglais urticae", "Vanessa atalanta"]
+
+            function changePic() {
+                //Set us up for another display
+                const banner = document.getElementById('butterbanner')
+                banner.classList.remove("banneranim");
+                //Increment the butterfly
+                x ++;
+                x %= butterflies.length;
+
+                document.getElementById('wing1').src = "images/" + butterflies[x] + "-wing-1.svg";
+                document.getElementById('butterbod').src = "images/" + butterflies[x] + "-body.svg";
+                document.getElementById('wing2').src = "images/" + butterflies[x] + "-wing-2.svg";
+                //Adjust the names
+                document.getElementById('common-name').innerHTML = common_names[x];
+                document.getElementById('science-name').innerHTML = science_names[x];
+                //Run the animation
+                void banner.offsetHeight;
+                banner.classList.toggle("banneranim");
+            }
+
+
+        </script>
     </head>
     <body>
         <div class="content">
             <div class="scene">
-                <img src="images/iris.svg" alt="bearded iris drawing">
+                <div id="butterbanner">
+                    <p id="common-name">Peacock</p>
+                    <p id="science-name">Aglais io</p>
+                </div>
+                <div id="butterfly" onclick="changePic()">
+                    <img id="wing1" src="images/peacock-wing-1.svg" alt="wing">
+                    <img id="butterbod" src="images/peacock-body.svg">
+                    <img id="wing2" src="images/peacock-wing-2.svg" alt="wing">
+                </div>
+                    <img id="iris" src="images/iris.svg" alt="bearded iris drawing">
             </div>
             <div id="menu">
                 <p id="me">Evan Caton</p>
