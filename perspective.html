@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+
+        <div id="boxholder">
+            <div id="row1">
+                <div class="row1" style = ""></div>
+                <div class="row1" style = ""></div>
+                <div class="row1" style = ""></div>
+
+            </div>
+            <div id="row2">
+                <div class="row2" style = ""></div>
+                <div class="row2" style = ""></div>
+                <div class="row2" style = ""></div>
+            </div>
+            <div id="row3">
+                <div class="row3" style = ""></div>
+                <div class="row3" style = ""></div>
+                <div class="row3" style = ""></div>
+            </div>
+
+        </div>
+        <div id="rangeGrid">
+            <div class="rangeInputHolder" id="rangeHolder1">
+                <p>Perspectve value (distance of camera): <span id="pspan"></span> times blue box width</p>
+                <input type="range" min="500" max="1500" value="1000" class="slider" id="perspval">
+            </div>
+            <div class="rangeInputHolder" id="rangeHolder2">
+                <p>Horizontal camera position</p>
+                <input type="range" min="0" max="100" value="50" class="slider" id="horizontalpan">
+            </div>
+            <div class="rangeInputHolder" id="rangeHolder3">
+                <p>Vertical camera position</p>
+                <input type="range" min="0" max="100" value="50" class="slider" id="verticalpan">
+            </div>
+        </div>
+
+
+    </body>
+    <style media="screen">
+        :root {
+            --box-size: 100px;
+            --box-margin: 20px;
+        }
+        body {
+            background-color: #101030;
+            height: 100%;
+            width: 100%;
+            margin: 0 0 0 0;
+        }
+        .rangeInputHolder p {
+            color: white;
+        }
+        #rangeGrid {
+            display: grid;
+            grid-auto-rows: 1fr 1fr 1fr;
+            width: 30%;
+            margin: auto;
+        }
+        #rangeGrid input {
+            width: clamp(200px, 100%, 350px);
+        }
+        #rangeHolder1{
+            grid-row: 1;
+        }
+        #rangeHolder2{
+            grid-row: 2;
+        }
+        #rangeHolder3{
+            grid-row: 3;
+        }
+        #boxholder {
+            width: 40%;
+            height: 500px;
+            margin-left:auto;
+            margin-right:auto;
+            position:static;
+            perspective: 500px;
+            transform-style: preserve-3d;
+            display: grid;
+        }
+        #no{
+            height:50px;
+            width:50px;
+            background-color: white;
+            position:absolute;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+        #row1, #row2, #row3 {
+            position:absolute;
+            place-self: center;
+            top: calc(50% - var(--box-size) / 2);
+            height: 100px;
+            display: flex;
+            z-index: -1;
+        }
+        .row1, .row2, .row3 {
+            width: var(--box-size);
+            height: var(--box-size);
+            transition: all 0.4s ease-out;
+            margin-left: var(--box-margin);
+            margin-right: var(--box-margin);
+        }
+        .row1 {
+            background-color:red;
+        }
+        .row2 {
+            background-color:blue;
+        }
+        .row3 {
+            background-color:green;
+        }
+    </style>
+    <script type="text/javascript">
+
+        for (let rowCount = 1; rowCount <= 3; rowCount++){
+            let boxes = document.getElementById("row"+rowCount);
+            let zheight = 250 * (rowCount-2);
+            boxes.style.transform = "translateZ("+zheight+"px)";
+        }
+
+        const hpan = document.getElementById("horizontalpan");
+        const vpan = document.getElementById("verticalpan");
+        const ppan = document.getElementById("perspval");
+        const boxholder = document.getElementById("boxholder");
+
+        const pspan = document.getElementById("pspan");
+
+        boxholder.style.perspective = ppan.value+"px";
+        boxholder.style.perspectiveOrigin = hpan.value+"% "+(100-vpan.value)+"%";
+
+        pspan.innerHTML = ppan.value/100;
+
+        ppan.oninput = function() {
+            boxholder.style.perspective = this.value+"px";
+            pspan.innerHTML = this.value/100;
+        }
+
+        hpan.oninput = function() {
+          boxholder.style.perspectiveOrigin = this.value+"% "+ (100-vpan.value)+"%";
+        }
+
+        vpan.oninput = function() {
+          boxholder.style.perspectiveOrigin = hpan.value+"% "+ (100-this.value) +"%";
+        }
+    </script>
+</html>
