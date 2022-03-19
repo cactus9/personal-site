@@ -62,7 +62,7 @@
                 <figcaption>Vertical view of an iris showing the locations of measurements used in the Iris Data Set</figcaption>
             </figure>
             <p>
-            150 examples is not a lot, and as we'll see later this leads to limitations with model selection and design. Additionally there are challenges with properly classifying instances specific to this data set- in our case the classes of our instances are the 3 species of iris considered. The biggest issue at play is that the 3 classes are not <i>linearly separable</i>. Let's say that you don't need to predict all the classes properly, but instead just know if an instance's class is "SPECIES-X" or "NOT-SPECIES-X". To make this classification, you might want to see if you could just plot the instances and draw a line that would cleanly separate our instances into the two categories.</p>
+            150 examples is not a lot, and as we'll see later this leads to limitations with model selection and design. Additionally there are challenges with properly classifying instances specific to this data set - in our case the classes of our instances are the 3 species of iris considered. The biggest issue at play is that the 3 classes are not <i>linearly separable</i>. Let's say that you don't need to predict all the classes properly, but instead just know if an instance's class is "SPECIES-X" or "NOT-SPECIES-X". To make this classification, you might want to see if you could just plot the instances and draw a line that would cleanly separate our instances into the two categories.</p>
             <figure>
                 <img src="../images/linear-separator.svg" alt="plotted points with dividing line">
                 <figcaption>Here, a straight line perfectly divides the red and the blue instances.</figcaption>
@@ -134,7 +134,7 @@
         There are a few ways to improve the kNN algorithm, the one explored here being that of centering the training instances before plotting them. Consider a dataset of 2 attributes and a class label. Say the values of the first attribute range from 0 to 1, but those of the second range from 0 to 100. A change in value in the second attribute is going to affect the distance from one instance to another far more than a change in the first one, unduly dictating how the instance space is partitioned just by virtue of the measurement unit. In order to ensure that attributes are evenly weighted, we work out the means and standard deviations of all attributes in the training set and center each datapoint, subtracting the mean and dividing by the standard deviation for each attribute. In essence this moves the data to be clustered around the origin point, and then evens the spread of the data along each axis. For example:
         </p>
         <figure>
-            <img src="../images/reg1.svg" alt="unnormalise data">
+            <img src="../images/reg1.svg" alt="unnormalised data">
             <figcaption>Data before centering.</figcaption>
         </figure>
         <figure>
@@ -202,10 +202,10 @@
         <br><br>
         For the purposes of this project, I used a sigmoid activation function with momentum updates. My network had an input layer of 4 neurons and an output layer of 3, and I searched over the size of a single hidden layer in the middle. The resultant accuracies are:
         </p>
-        <table style="border:1px solid; border-collapse: collapse;border-spacing: 0px; margin:auto;">
+        <table>
           <tr style="font-style:bold;">
-            <th style="border:1px solid;padding:5px;">Size of hidden layer</th>
-            <th style="border:1px solid;padding:5px;">Accuracy</th>
+            <th>Size of hidden layer</th>
+            <th>Accuracy</th>
           </tr>
           <tr>
             <td>1</td>

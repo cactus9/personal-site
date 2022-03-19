@@ -18,7 +18,7 @@ h1 {
     grid-auto-rows: auto;
     font-size:20px;
 
-    font-family:sans-serif;
+    font-family:"Noto Sans",sans-serif;
     font-size: min(20px, 5vw);
     margin-left:5%;
     margin-right:5%;
