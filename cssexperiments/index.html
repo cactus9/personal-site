@@ -7,9 +7,13 @@
         <link rel="stylesheet" href="../styles/fonts.css">
         <link rel="stylesheet" href="../styles/article.css">
         <link rel="icon" type="image/x-icon" href="../images/favicon.svg">
+        <style media="screen">
+            .code {
+                background-color: #F7F4E6;
+            }
+        </style>
     </head>
     <body>
-
         <a href="../" id="home-button"><img src="../images/favicon.svg" title="Home"><p>Home</p></a>
         <header>
             <h1>CSS is Kinda Wild</h1>
@@ -28,9 +32,34 @@
                 <li>"Wow! That's really cool."</li>
                 <li>"Wait, then what's the point of &ltcanvas&gt?"</li>
             </ol>
-            <p>These features are neat and all, but this wasn't even new to the web when this was first proposed - it's that this used to be primarily handled by JavaScript libraries. Additionally, when I've shown people the demos I've made using pure CSS, their reaction always carries a feeling of "CSS? <i>Really?</i>" - a slight bafflement, a sense that putting this functionality in CSS is somehow unintuitive. Anyone familiar with the language will know that "intuitive" has never been an accurate descriptor for any aspect of CSS, but still. <br><br>The reason why these features are in the language is simple: Apple asked for them, and a lot of the group thought they were nifty. There was also some <a href="https://lists.w3.org/Archives/Public/www-style/2008Mar/0322.html">discussion</a> on CSS not wanting to become irrelevant as other technologies began to fulfill demands for presenting web content. As an aside, I recommend reading one Apple representative's hilariously shady and unprofessional <a href="https://lists.w3.org/Archives/Public/www-style/2008Mar/0321.html">response</a> to a Microsoft employee questioning if these features were really appropriate. It brought me joy.<br><br>Appropriate or not, in this article I want to explore not only what you can do with these features, but also have a closer look at what the designs of their implementations ended up being.</p>
+            <p>These features are neat and all, but this wasn't even new to the web when this was first proposed - it's that this used to be primarily handled by JavaScript libraries. Additionally, when I've shown people the demos I've made using pure CSS, their reaction always carries a feeling of "CSS? <i>Really?</i>" - a slight bafflement, a sense that putting this functionality in CSS is somehow unintuitive. Anyone familiar with the language will know that "intuitive" has never been an accurate descriptor for any aspect of CSS, but still. <br><br>The reason why these features are in the language is simple: Apple asked for them, and a lot of the group thought they were nifty. There was also some <a href="https://lists.w3.org/Archives/Public/www-style/2008Mar/0322.html">discussion</a> on CSS not wanting to become irrelevant as other technologies began to fulfill demands for presenting web content. As for why Apple specifically was the one to call for these, it's hard to tell. As an aside, I recommend reading one Apple representative's hilariously shady and unprofessional <a href="https://lists.w3.org/Archives/Public/www-style/2008Mar/0321.html">response</a> to a Microsoft employee questioning if these features were really appropriate. It brought me joy.<br><br>Appropriate or not, in this article I want to explore not only what you can do with these features, but also have a closer look at what the designs of their implementations ended up being.</p>
+            <h3>CSS crash course</h3>
+            <p>As some of you reading this may not have worked with the CSS or perhaps need a refresher, here's a brief run-down of how CSS works. On a basic level, CSS documents are a list of rules that take the following structure:</p>
+            <pre class="code">
+selector {
+    property: value;
+    other-property: other-value;
+    ...
+}</pre>
+            <p>Where <code>selector</code> is some string specifying which parts of a web page to apply that styling rule to. For a concrete example of these in action, the following is the code for a page with a single paragraph colored red (CSS being put in the &ltstyle&gt section):</p>
+            <pre class="code">
+&lthtml&gt
+    &lthead&gt
+        &ltstyle&gt
+            p {
+                color:red;
+            }
+        &lt/style&gt
+    &lt/head&gt
+    &ltbody&gt
+        &ltp&gtThis is a paragraph.&lt/p&gt
+    &lt/body&gt
+&lt/html&gt</pre>
+            <div class="frame" style="border:1px solid black">
+                <p style="color:red">This is a paragraph</p>
+            </div>
 
-            <h2>Animations and transformations</h2>
+            <h2>Animations and transitions</h2>
         </article>
         <footer></footer>
 
