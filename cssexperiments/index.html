@@ -12,15 +12,27 @@
 
         <a href="../" id="home-button"><img src="../images/favicon.svg" title="Home"><p>Home</p></a>
         <header>
-            <h1>Whatever the title of this article will end up being</h1>
+            <h1>CSS is Kinda Wild</h1>
         </header>
         <article>
-            <div id="introduction">
-                <h2>Introduction</h2>
-                <p style="width:66ch">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            </div>
 
+            <h2>Introduction</h2>
+            <p><b>Cascading Style Sheets</b> (CSS) is a programming language developed in the mid-90s with the goal of styling web pages, currently maintained by the <a href="https://www.w3.org/Consortium/">World Wide Web Consortium's</a> <a href="https://www.w3.org/groups/wg/css">CSS Working Group</a>.<br><br>For the first decade or so of the language's existence its scope and mission-statement were fairly straightforward: web pages are made up of images, paragraphs, videos, etc. that need to be positioned and sized accordingly. In 2007 however, Apple's representatives in the Working Group put forward a <a href="https://lists.w3.org/Archives/Public/www-style/2008Mar/0313.html">wishlist</a> of features that the company wanted to see incoporated into the language. These included 3 incredibly powerful tools for creating design-complex pages (all of which incidentally are used on this site's homepage):</p>
+            <ul>
+                <li><b>2D and 3D transformations</b> - translations, rotations, skews performed in either 2 or 3 dimensions</li>
+                <li><b>Animations and transitions</b> - event-triggered or "ambient" animations, e.g. the fill effect I use on links. Can include transformations, allowing for dynamic 3D effects</li>
+                <li><b>Filter effects</b> - blurring and hue-shifting images, drop-shadows, etc.</li>
+            </ul>
+            <p>I only found out that 3D animations were possible in CSS about 6 months ago, and my initial reactions to this revelation were</p>
+            <ol>
+                <li>"Wow! That's really cool."</li>
+                <li>"Wait, then what's the point of &ltcanvas&gt?"</li>
+            </ol>
+            <p>These features are neat and all, but this wasn't even new to the web when this was first proposed - it's that this used to be primarily handled by JavaScript libraries. Additionally, when I've shown people the demos I've made using pure CSS, their reaction always carries a feeling of "CSS? <i>Really?</i>" - a slight bafflement, a sense that putting this functionality in CSS is somehow unintuitive. Anyone familiar with the language will know that "intuitive" has never been an accurate descriptor for any aspect of CSS, but still. <br><br>The reason why these features are in the language is simple: Apple asked for them, and a lot of the group thought they were nifty. There was also some <a href="https://lists.w3.org/Archives/Public/www-style/2008Mar/0322.html">discussion</a> on CSS not wanting to become irrelevant as other technologies began to fulfill demands for presenting web content. As an aside, I recommend reading one Apple representative's hilariously shady and unprofessional <a href="https://lists.w3.org/Archives/Public/www-style/2008Mar/0321.html">response</a> to a Microsoft employee questioning if these features were really appropriate. It brought me joy.<br><br>Appropriate or not, in this article I want to explore not only what you can do with these features, but also have a closer look at what the designs of their implementations ended up being.</p>
+
+            <h2>Animations and transformations</h2>
         </article>
+        <footer></footer>
 
     </body>
 </html>
