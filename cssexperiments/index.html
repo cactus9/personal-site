@@ -15,6 +15,7 @@
                 background-color: var(--code-color);
                 color:white;
                 padding: 0.5em;
+                overflow-x: scroll;
             }
             code {
                 color: var(--code-color);
@@ -40,7 +41,6 @@
                 border-color: blue;
             }
             .pulsebutton {
-                transition-timing-function: linear;
                 animation: pulse 0.75s alternate infinite;
             }
             @keyframes pulse {
@@ -48,6 +48,59 @@
                     color: blue;
                     border-color: blue;
                 }
+            }
+
+            iframe, .frame {
+                border:1px solid black;
+                min-height: 20ch;
+            }
+
+            .frame {
+                perspective: 800px;
+                perspective-origin: top center;
+                transform-style: preserve-3d;
+                display: grid;
+            }
+
+            .box {
+                width: 4em;
+                height: 4em;
+                background-color: #C071FFE0;
+                padding: 0.5em;
+                color:white;
+            }
+            .box1 {
+                animation: move 2s infinite;
+            }
+            .box p {
+                margin: 0px;
+            }
+            @keyframes move {
+                50% {
+                    transform: rotate(45deg);
+                }
+                100% {
+                    transform: translate(2em, 3em) rotate(45deg);
+                }
+            }
+            .pbox1, .pbox2, .pbox3 {
+                position: absolute;
+                place-self: center;
+                animation: pslide 2s linear infinite alternate;
+            }
+            .pbox1 {
+                transform: translateZ(-5em);
+            }
+            .pbox2 {
+                filter: hue-rotate(120deg);
+            }
+            .pbox3 {
+                filter: hue-rotate(240deg);
+                transform: translateZ(5em);
+            }
+            @keyframes pslide {
+                from {left: 10%;}
+                to {left: calc(90% - 5em);}
             }
         </style>
     </head>
@@ -93,7 +146,7 @@ selector {
         &ltp&gtThis is a paragraph.&lt/p&gt
     &lt/body&gt
 &lt/html&gt</pre>
-            <div class="frame" style="border:1px solid black">
+            <div class="frame" >
                 <p style="color:red">This is a paragraph.</p>
             </div>
 
@@ -109,7 +162,7 @@ button:hover {
     border-color: blue;
 }</pre>
             <button type="button">Hover to glow!</button>
-            <p>In order to create the above, I have defined two rules - one is applied to the button in its "default" mode, the other applies to the button only when it is hovered over by the user. When the button is hovered over, the first rule defines the start of the transition and the second the end goal. With the <code>transition</code> keyword, I define which properties are included in my transition ("all" for convenience), how long I want the whole transition to take, and a <i>timing function</i> that helps me control the feel of the final result. Compare the above with changing the timing function to <code>linear</code>:</p>
+            <p><code>em</code> here is a unit of length based on font size.<br><br>In order to create the above, I have defined two rules - one is applied to the button in its "default" mode, the other applies to the button only when it is hovered over by the user. When the button is hovered over, the first rule defines the start of the transition and the second the end goal. With the <code>transition</code> keyword, I define which properties are included in my transition ("all" for convenience), how long I want the whole transition to take, and a <i>timing function</i> that helps me control the feel of the final result. Compare the above with changing the timing function to <code>linear</code>:</p>
             <button type="button" style="transition-timing-function: linear">Linear timing</button>
             <p>The difference is subtle, but the eased function has a bounce to it that is missing in the linear one; the linear function feels sluggish in comparison.<br><br>Transitions define how content moves from a default styling to some other styling due to some interaction with the user - an explicit trigger. An <i>animation</i> is very similar, except it is not triggered by something the user does - it just happens on its own. Because we aren't looking at triggers like hovering or clicking to define endpoints for the animation, we'll instead write keyframes for it. For example, let's take the glowing button from earlier and make it pulse eerily in the background while the user is not hovering over it.</p>
 <pre class="code">
@@ -127,6 +180,81 @@ button:hover {
             <p>In the above rule for the <code>pulsebutton</code> class, we are saying that we will play the <code>pulse</code> animation back-and-forth forever, with each forward pass and each backward pass taking 0.75 seconds. The <code>to</code> keyword signals the rules for the end state of the animation, but I could also have used percentages if I wanted some rules to only apply halfway through.<br><br> In terms of the designs of these features, I actually really like them. The examples I've shown have been simple, but I think it's not too hard to see how you could build these up to create a truly dynamic and impressive design for a website. It's far from perfect, of course. Having to remember what order keywords go in for the <code>animation</code> rule is always a pain, I'm disappointed that you can't define transitions through the powerful keyframes syntax, and trying to transition already-animated features of an element just doesn't work right. Overall though, solid 8/10.</p>
 
             <h2>2D and 3D transformations</h2>
+            <p>This is where things start to get wild.<br><br> So 2D transformations are pretty straightforward - you have an object, and you want to move it around a bit. To see this in action, let's set up a box that we can move around. First, let's twist it 45 degrees to the right, then move it. </p>
+<pre class="code">
+#box {
+    animation: move 2s infinite;
+}
+@keyframes move {
+    50% {
+        transform: rotate(45deg);
+    }
+    100% {
+        transform: translate(2em, 3em) rotate(45deg);
+    }
+}
+</pre>
+            <div class="frame" style="height: 15ch">
+                <div class="box box1"></div>
+            </div>
+            <p>Notice that we have to specify the rotation in both keyframes - at each point you have to describe the entire value any property that you change. If we didn't, then the box would untwist as it moved down.<br><br>However, this is HTML - we can put things in these boxes. Consider the same animation, but this time we'll put some text in the box. Notice that it's still treated as text that you can highlight, copy, edit, etc.</p>
+            <div class="frame" style="height: 15ch">
+                <div class="box box1"><p>Try selecting me!</p></div>
+            </div>
+            <p>2D is pretty cool and all, but if it's not good enough for Apple then it's not good enough for us! Let's see how we can take it further.</p>
+            <h3>3D transformations</h3>
+            <p>In all fairness, there's not as much jank afoot here in the design as there could have been. With that being said, 3D in CSS takes some getting used to.<br><br>Defining distance in the x-axis and y-axis is pretty easy on a web page - you just use the dimensions of the computer screen. For 3D however, we'll need to introduce the z-axis, which will correspond to how far away elements appear to the user. Now we don't actually know how far away the user is from their screen, but chances are it'll be about arm's length, so we'll set the <code>perspective</code> value to be around that distance. <code>perspective</code> essentially positions the viewer themselves in 3D space, specifically by giving the z value of their position. Elements that have been moved forwards on the z-axis appear closer, and those moved back appear more distant. As for specifying the x and y values of the viewer's position, that's where <code>perspective-origin</code> comes into play. Why not just do all of them in one keyword? Because.<br><br>To illustrate the role of <code>perspective</code>, let's make the same 3D animation 3 times, each having its own value. </p>
+<pre class="code">
+container {
+    perspective: XXX;
+    perspective-origin: top center;
+}
+
+.pbox1, .pbox2, .pbox3 {
+    position: absolute;
+    animation: pslide 2s linear infinite alternate;
+}
+.pbox1 {
+    transform: translateZ(-5em);
+}
+.pbox3 {
+    transform: translateZ(5em);
+}
+@keyframes pslide {
+    from {
+        left: 10%; /* We'll adjust the left margin of each element to make it move */
+    }
+    to {
+        left: calc(90% - 5em);
+    }
+}
+</pre>
+            <figure>
+                <div class="frame" style="perspective: 400px">
+                    <div class="box pbox1"></div>
+                    <div class="box pbox2"></div>
+                    <div class="box pbox3"></div>
+                </div>
+                <figcaption><code>perspective: 400px</code> </figcaption>
+            </figure>
+            <figure>
+                <div class="frame" style="perspective: 800px">
+                    <div class="box pbox1"></div>
+                    <div class="box pbox2"></div>
+                    <div class="box pbox3"></div>
+                </div>
+                <figcaption><code>perspective: 800px</code> </figcaption>
+            </figure>
+            <figure>
+                <div class="frame" style="perspective: 1200px">
+                    <div class="box pbox1"></div>
+                    <div class="box pbox2"></div>
+                    <div class="box pbox3"></div>
+                </div>
+                <figcaption><code>perspective: 1200px</code> </figcaption>
+            </figure>
+            <p>Without having to do any math of our own, we can create this really slick parallax effect using pure CSS. I think that's cool. But just as we had translations and rotations in 2D, we have them in 3D as well.<br><br> Now you may have noticed this odd <code>transform-style: preserve-3d;</code> thing in the above code snippet. What's this doing? Well, this is where jank enters stage left. If you don't specify this when trying to perform a 3D transformation, it will do the transforn and then collapse the entire scene back into 2 dimensions, removing all parallax and scaling effects. Observe what it does to the 800px example from before:</p>
+
         </article>
         <footer></footer>
 
