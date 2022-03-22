@@ -63,11 +63,14 @@
             }
 
             .box {
+                position: absolute;
                 width: 4em;
                 height: 4em;
                 background-color: #C071FFE0;
                 padding: 0.5em;
                 color:white;
+                place-self: center;
+                text-align: center;
             }
             .box1 {
                 animation: move 2s infinite;
@@ -84,8 +87,6 @@
                 }
             }
             .pbox1, .pbox2, .pbox3 {
-                position: absolute;
-                place-self: center;
                 animation: pslide 2s linear infinite alternate;
             }
             .pbox1 {
@@ -101,6 +102,22 @@
             @keyframes pslide {
                 from {left: 10%;}
                 to {left: calc(90% - 5em);}
+            }
+            .rotbox {
+                animation: rotbox 2s linear infinite
+            }
+            @keyframes rotbox {
+                to {transform: rotateY(360deg);}
+            }
+            .holder {
+                height: 0px;
+                width: 0px;
+                place-self:center;
+                display: grid;
+                animation: rotholder 7s linear infinite;
+            }
+            @keyframes rotholder {
+                to {transform: rotateZ(360deg) rotateY(360deg);}
             }
         </style>
     </head>
@@ -253,8 +270,85 @@ container {
                 </div>
                 <figcaption><code>perspective: 1200px</code> </figcaption>
             </figure>
-            <p>Without having to do any math of our own, we can create this really slick parallax effect using pure CSS. I think that's cool. But just as we had translations and rotations in 2D, we have them in 3D as well.<br><br> Now you may have noticed this odd <code>transform-style: preserve-3d;</code> thing in the above code snippet. What's this doing? Well, this is where jank enters stage left. If you don't specify this when trying to perform a 3D transformation, it will do the transforn and then collapse the entire scene back into 2 dimensions, removing all parallax and scaling effects. Observe what it does to the 800px example from before:</p>
-<!-- TODO: Insert a demo for rotation and reweite the above paragraph -->
+            <p>Without having to do any math of our own, we can create this really slick parallax effect using pure CSS. I think that's cool. And just as we had translations and rotations in 2D, we have them in 3D as well.</p>
+<pre class="code">
+box {
+    animation: rotate 2s linear infinite
+}
+@keyframes rotate {
+    to {
+        transform: rotateY(360deg);
+    }
+}
+</pre>
+            <div class="frame">
+                <div class="box rotbox"></div>
+            </div>
+            <p>But these are still HTML elements, so we can put whatever we want in them:</p>
+            <div class="frame">
+                <div class="box rotbox"><p>Try selecting me!</p>
+                </div>
+            </div>
+            <p>Now I can't speak for everyone, but that text on a rotating box is fairly annoying to read. While it is certainly intriguing to consider the potential of what you can accomplish using purely CSS, we can't forget that the point of this language is to make web content more accessible and pleasing to consume. In a practical sense the use-cases for making the text spin are extremely limited, which again calls into question whether all this is really necessary for CSS.<br><br>Ignoring practicality for now, let's explore the possibilites of what we can do. We know that we can make flat rectangles and call them boxes, but what about actual boxes? A cube is made up of 6 squares, so if we just draw 6 boxes and adjust accordingly, we should get something good.</p>
+<pre class="code">
+box1 {
+    transform: translateZ(2.5em);
+}
+box2 {
+    transform: translateZ(-2.5em);
+}
+box3 {
+    transform: translateY(2.5em) rotateX(90deg);
+}
+...
+</pre>
+            <div class="frame" style="perspective: 400px">
+                <div class="box" style="transform: translateZ(2.5em)"></div>
+                <div class="box" style="filter: hue-rotate(40deg); transform: translateZ(-2.5em)"></div>
+                <div class="box" style="filter: hue-rotate(80deg); transform: translateY(2.5em) rotateX(90deg)"></div>
+                <div class="box" style="filter: hue-rotate(120deg); transform: translateY(-2.5em) rotateX(-90deg)"></div>
+                <div class="box" style="filter: hue-rotate(160deg); transform: translateX(2.5em) rotateY(90deg)"></div>
+                <div class="box" style="filter: hue-rotate(200deg); transform: translateX(-2.5em) rotateY(-90deg)"></div>
+            </div>
+            <p>Well, it took a lot of positioning and little bit of work to get it right, but you can indeed make actual boxes! It's kinda hard to see things properly without an animation, so let's make it rotate. Now we could animate each element individually, but that would require writing a seperate set of keyframes and rules for each of the 6 faces. A better option would be to place the entire set of faces into some kind of holder element and animate that holder instead - much less code, and a lot easier to adjust the look of. Let's try it:</p>
+<pre class="code">
+holder {
+    animation: rotate 7s linear infinite;
+}
+@keyframes rotate {
+    to {
+        transform: rotateZ(360deg) rotateY(360deg);
+    }
+}
+</pre>
+            <div class="frame" style="perspective: 400px">
+                <div class="holder">
+                    <div class="box" style="transform: translateZ(2.5em)"></div>
+                    <div class="box" style="filter: hue-rotate(40deg); transform: translateZ(-2.5em)"></div>
+                    <div class="box" style="filter: hue-rotate(80deg); transform: translateY(2.5em) rotateX(90deg)"></div>
+                    <div class="box" style="filter: hue-rotate(120deg); transform: translateY(-2.5em) rotateX(-90deg)"></div>
+                    <div class="box" style="filter: hue-rotate(160deg); transform: translateX(2.5em) rotateY(90deg)"></div>
+                    <div class="box" style="filter: hue-rotate(200deg); transform: translateX(-2.5em) rotateY(-90deg)"></div>
+                </div>
+            </div>
+            <p>Wait, where did all the boxes go? You can only see one of them, but they're all still part of the file, and I didn't delete any of their transformations. Unfortunately, this is where jank enters stage left. If you try to rotate any HTML element in 3D, the default behaviour in CSS is to flatten everything within that element - the 3D effects applied to the faces contained in our holder are effectively nullified. They aren't entirely gone, but they've been squished back into 2 dimensions which in our case ruins the effect. There is a way to rectify this - if we specify <code>transform-style: preserve-3d</code> in our holder element, then the effect applied to the faces within are not removed. Take a look now: </p>
+<pre class="code">
+holder {
+    animation: rotate 7s linear infinite;
+    transform-style: preserve-3d;
+}
+</pre>
+            <div class="frame" style="perspective: 400px">
+                <div class="holder" style="transform-style: preserve-3d">
+                    <div class="box" style="transform: translateZ(2.5em)"></div>
+                    <div class="box" style="filter: hue-rotate(40deg); transform: translateZ(-2.5em)"></div>
+                    <div class="box" style="filter: hue-rotate(80deg); transform: translateY(2.5em) rotateX(90deg)"></div>
+                    <div class="box" style="filter: hue-rotate(120deg); transform: translateY(-2.5em) rotateX(-90deg)"></div>
+                    <div class="box" style="filter: hue-rotate(160deg); transform: translateX(2.5em) rotateY(90deg)"></div>
+                    <div class="box" style="filter: hue-rotate(200deg); transform: translateX(-2.5em) rotateY(-90deg)"></div>
+                </div>
+            </div>
+            <p>From this, we now know we can faithfully model any shape that can be broken down into boxes. What about curves? Well, as far as I've seen it is not possible to model any kind of curved surface in CSS. The best we can do is approximate them with some number of flat segments. For example, let's try to model a smooth ring:</p>
         </article>
         <footer></footer>
 
