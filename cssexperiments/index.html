@@ -53,6 +53,7 @@
             iframe, .frame {
                 border:1px solid black;
                 min-height: 20ch;
+                width: 100%;
             }
 
             .frame {
@@ -60,6 +61,10 @@
                 perspective-origin: top center;
                 transform-style: preserve-3d;
                 display: grid;
+            }
+
+            iframe {
+                height: min(66ch, 90vw);
             }
 
             .box {
@@ -348,7 +353,9 @@ holder {
                     <div class="box" style="filter: hue-rotate(200deg); transform: translateX(-2.5em) rotateY(-90deg)"></div>
                 </div>
             </div>
-            <p>From this, we now know we can faithfully model any shape that can be broken down into boxes. What about curves? Well, as far as I've seen it is not possible to model any kind of curved surface in CSS. The best we can do is approximate them with some number of flat segments. For example, let's try to model a smooth ring:</p>
+            <p>From this, we now know we can faithfully model any shape that can be broken down into boxes, and because we can set the backgroun images of these boxes to be any flat shape we can build more complex models out of triangles too - any shape with flat faces can now be perfectly constructed. What about curves? Well, as far as I've seen it is not possible to model any kind of curved surface in CSS. The best we can do is approximate them with some number of flat segments, the more segments used the higher the quality of the approximation. For example, let's try to model a smooth ring:</p>
+
+            <iframe src="./squaretest.html"></iframe>
         </article>
         <footer></footer>
 
