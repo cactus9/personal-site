@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="../styles/fonts.css">
+        <style media="screen">
+        body {
+            margin: 0px;
+            perspective: 900px;
+            transform-style: preserve-3D;
+            perspective-origin: 50vw 50vh;
+            overflow: hidden;
+        }
+        p {
+            font-family:"Noto Sans",sans-serif;
+            font-size: min(20px, 5vw);
+        }
+        #holder{
+            position: absolute;
+            transform-style: preserve-3D;
+            width: 0px;
+            height: 0px;
+            top: 50vh;
+            left: 50vw;
+            animation: rot 17s linear infinite;
+        }
+
+
+         @keyframes rot {
+             from {
+                 transform: rotateX(0deg) translate3d(-50%, -50%, 0px);
+             }
+
+             to {
+                 transform: rotateX(360deg)  translate3d(-50%, -50%, 0px);
+             }
+         }
+
+         #inner {
+             transform-style: preserve-3D;
+             width: 0px;
+             height: 0px;
+             animation: innerrot 8s infinite linear;
+         }
+         @keyframes innerrot {
+             from {
+                 transform: rotateY(0turn);
+             }
+             to {
+                 transform:rotateY(1turn);
+             }
+         }
+
+         .adjustable {
+             background-color: #ff8b00;
+             color: #ff8b00;
+             position: relative;
+             transform-origin: 0px 0px;
+             overflow:hidden;
+             height: 10vh;
+         }
+
+         #controlBar {
+             display: grid;
+             width: fit-content;
+             position: relative;
+             grid-gap: 1em;
+             left:50%;
+             transform: translate(-50%);
+         }
+
+        </style>
+        <script type="text/javascript">
+
+        const style = document.createElement('style');
+        style.type = 'text/css';
+        document.head.appendChild(style);
+
+        function makeNRing(n, vw_percentage) {
+            //Draw an n-sided circle of diameter vw_percentage
+            const radius = vw_percentage/2;
+            const dist = radius * Math.cos( Math.PI / n);
+            const width = 2 * radius * Math.sin( Math.PI / n);
+
+            let innerHolder = document.getElementById('inner');
+            //Refresh everything
+            innerHolder.innerHTML = '';
+            style.innerHTML = '';
+
+            for (var i = 0; i < n; i++) {
+                //Make the element
+                let thisdiv = document.createElement('div');
+                thisdiv.classList.add("adjustable");
+                thisdiv.id = "div"+i;
+                thisdiv.innerHTML = "placeholder";
+                innerHolder.appendChild(thisdiv);
+
+                //Now style it
+
+                style.innerHTML += `
+                #div${i} {
+                    width: ${width}vw;
+                    filter: hue-rotate(${i / n}turn);
+                    transform: rotateY(${i / n}turn) translate3d(-50%, calc(-1 * ${i} * 100% - 50%), ${dist}vw);
+
+                }`;
+            }
+        }
+
+        function nChangeReact(new_n) {
+            makeNRing(new_n,50);
+        }
+
+        </script>
+    </head>
+    <body onload="makeNRing(5,50)">
+        <div id='holder'><div id='inner'></div></div>
+        <div id="controlBar">
+            <p style="grid-column: 1">Number of sides:</p>
+            <input type="range" id="nsides" min="3" max="50" oninput="nChangeReact(this.value)" value="5" style="grid-column: 2">
+        </div>
+    </body>
+</html>

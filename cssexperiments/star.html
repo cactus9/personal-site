@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <style media="screen">
+        body {
+            margin: 0px;
+            perspective: 900px;
+            transform-style: preserve-3D;
+            perspective-origin: 50vw 50vh;
+            overflow: hidden;
+        }
+        p {
+            font-family:"Noto Sans",sans-serif;
+            font-size: min(20px, 5vw);
+        }
+        #holder{
+            position: absolute;
+            transform-style: preserve-3D;
+            width: 0px;
+            height: 0px;
+            top: 50vh;
+            left: 50vw;
+            animation: rot 17s linear infinite;
+        }
+
+
+         @keyframes rot {
+             from {
+                 transform: rotateX(0deg) translate3d(-50%, -50%, 0px);
+             }
+
+             to {
+                 transform: rotateX(360deg)  translate3d(-50%, -50%, 0px);
+             }
+         }
+
+         #inner {
+             transform-style: preserve-3D;
+             width: 0px;
+             height: 0px;
+             animation: innerrot 8s infinite linear;
+         }
+         @keyframes innerrot {
+             from {
+                 transform: rotateY(0turn);
+             }
+             to {
+                 transform:rotateY(1turn);
+             }
+         }
+
+         .adjustable {
+             background-color: #ff8b00;
+             color: #ff8b00;
+             position: relative;
+             transform-origin: 0px 0px;
+             overflow:hidden;
+             height: 10vh;
+         }
+
+         #controlBar {
+             display: grid;
+             width: fit-content;
+             position: relative;
+             column-gap: 1em;
+             left:50%;
+             transform: translate(-50%);
+         }
+         #controlBar p {
+             margin: 0.4em;
+         }
+
+         #nsides, #mskips {
+             height: fit-content;
+             place-self: center;
+             font-size: 1em;
+         }
+
+        </style>
+        <script type="text/javascript">
+
+        const style = document.createElement('style');
+        style.type = 'text/css';
+        document.head.appendChild(style);
+
+        function makeNMStar(n, m, vw_percentage) {
+            //Draw a {n,m} star inscribed in a circle of diameter vw_percentage
+            const radius = vw_percentage/2;
+            const dist = radius * Math.cos(m * Math.PI / n);
+            const width = 2 * radius * Math.sin(m * Math.PI / n);
+
+            let innerHolder = document.getElementById('inner');
+            //Refresh everything
+            innerHolder.innerHTML = '';
+            style.innerHTML = '';
+
+            for (var i = 0; i < n; i++) {
+                //Make the element
+                let thisdiv = document.createElement('div');
+                thisdiv.classList.add("adjustable");
+                thisdiv.id = "div"+i;
+                thisdiv.innerHTML = "placeholder";
+                innerHolder.appendChild(thisdiv);
+
+                //Now style it
+
+                style.innerHTML += `
+                #div${i} {
+                    width: ${width}vw;
+                    filter: hue-rotate(${i / n}turn);
+                    transform: rotateY(${i / n}turn) translate3d(-50%, calc(-1 * ${i} * 100% - 50%), ${dist}vw);
+
+                }`;
+            }
+        }
+
+        function nChangeReact(new_n) {
+            if (new_n < 3) {
+                return null
+            } else if (new_n == 4 || new_n == 3) {
+                const mskips = document.getElementById('mskips');
+                mskips.value = "1";
+                mskips.max = 1;
+                makeNMStar(new_n,1,10);
+            }
+
+            //We've got a new value
+            const mskips = document.getElementById('mskips');
+            mskips.max = Math.floor((new_n-1) / 2);
+
+            if (mskips.max < parseInt(mskips.value)) {
+                mskips.value = `${mskips.max}`;
+            }
+
+            makeNMStar(new_n,parseInt(mskips.value),parseInt(document.getElementById('diameter').value));
+        }
+
+        function mChangeReact(new_m) {
+            makeNMStar(parseInt(document.getElementById('nsides').value),new_m,parseInt(document.getElementById('diameter').value));
+        }
+
+        function dChangeReact(new_diam) {
+            makeNMStar(parseInt(document.getElementById('nsides').value),parseInt(document.getElementById('mskips').value),new_diam);
+        }
+
+        </script>
+    </head>
+    <body onload="makeNMStar(5,2,30)">
+        <div class="do"></div>
+        <div id='holder'><div id='inner'></div></div>
+        <div id="controlBar" >
+            <p style="grid-column: 1; grid-row: 1;">Number of sides:</p>
+            <input type="number" id="nsides" min="3" oninput="nChangeReact(this.value)" value="5" style="grid-column: 2; grid-row: 1;">
+            <p style="grid-column: 1; grid-row: 2;">Points skipped:</p>
+            <input type="number" id="mskips" min="1" max="2" value="2" oninput="mChangeReact(this.value)" style="grid-column: 2; grid-row: 2;">
+            <p style="grid-column: 1; grid-row: 3;">Size:</p>
+            <input type="range" id="diameter" value="30" min="1" max="90" oninput="dChangeReact(this.value)" style="grid-column: 2; grid-row: 3;">
+        </div>
+    </body>
+</html>

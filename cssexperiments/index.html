@@ -71,7 +71,7 @@
                 position: absolute;
                 width: 4em;
                 height: 4em;
-                background-color: #C071FFE0;
+                background-color: #ff8b00E0;
                 padding: 0.5em;
                 color:white;
                 place-self: center;
@@ -353,9 +353,10 @@ holder {
                     <div class="box" style="filter: hue-rotate(200deg); transform: translateX(-2.5em) rotateY(-90deg)"></div>
                 </div>
             </div>
-            <p>From this, we now know we can faithfully model any shape that can be broken down into boxes, and because we can set the backgroun images of these boxes to be any flat shape we can build more complex models out of triangles too - any shape with flat faces can now be perfectly constructed. What about curves? Well, as far as I've seen it is not possible to model any kind of curved surface in CSS. The best we can do is approximate them with some number of flat segments, the more segments used the higher the quality of the approximation. For example, let's try to model a smooth ring:</p>
-
-            <iframe src="./squaretest.html"></iframe>
+            <p>While it's nice that you get to choose the behaviour of CSS on transforming nested elements, it is strange that the default behaviour of CSS is to flatten everything - surely keeping everything 3D should be the base case? Much like how people refer to "static" in Java as "the word you throw around to make the errors go away", <code>transform-style: preserve-3d</code> feels very much the equivalent in 3D CSS. It's not easy to understand when it needs to be applied ("wait, it doesn't propagate to child elements?"), and it feels like something that language should just do for you. The difference is, "static" in Java is intuitive once you hear the explanation, but the CSS one still feels silly.<br><br> In any case, we now know we can faithfully model any shape that can be broken down into boxes, and because we can set the background images of these boxes to be any flat shape we can build more complex models out of triangles too - any shape with flat faces can now be perfectly constructed. What about curves? Well, as far as I've seen it is not possible to model any kind of curved surface in CSS. The best we can do is approximate them with some number of flat segments, the more segments used the higher the quality of the approximation. For example, let's try to model a smooth ring:</p>
+            <iframe src="./ring.html"></iframe>
+            <p>It gets pretty smooth as the number of sides increase, but I'm noticing some uncomfortable gapping between the boxes - a bit of untidy math goes into figuring out what the width of each box should be, and it seems like decimals getting cut off by CSS leads to occasional pixel-wide slits. With garish enough colours no-one will notice, but it's not ideal. Brief aside: I showed the above demo to one of my lecturers, and she responded that I would have been great at designing websites in the 90s. I'm still recovering from that burn.<br><br>To round off this section, I'd like to talk about stars a bit. Stars were one of the first things I tried to make when I first learned Python and turtle graphics at school, and I was surprised by how complex they got. We all know the simple 5-pointed pentagram star, as well as the 6-pointed Star of David, but you can actually make stars with any number of points. What's more, you can change the character of the star by adjusting how many points are between the endpoints of any line in the star. We can generalise this using Schläfli notation - the pentagram is {5/2}, as it is a 5-pointed star and to draw a line from one point you count 2 points along to the other. This is messy to explain in words, so why not an interactive demo:</p>
+            <iframe src="./star.html"></iframe>
         </article>
         <footer></footer>
 
