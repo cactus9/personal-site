@@ -9,7 +9,12 @@
         <link rel="icon" type="image/x-icon" href="../images/favicon.svg">
         <style media="screen">
         :root {
-            --code-color: #3C006C;
+            --code-color: #50107c; /*Chosen from iris image*/
+            --highlight-color: #cf7ce4; /*Chosen from iris image*/
+        }
+
+        header, footer {
+            background-color: var(--code-color);
         }
             .code {
                 background-color: var(--code-color);
@@ -37,16 +42,16 @@
             }
             button:hover {
                 animation-play-state: paused;
-                filter: drop-shadow(0em 0em 0.5em lightblue);
-                border-color: blue;
+                filter: drop-shadow(0em 0em 0.5em var(--highlight-color));
+                border-color: var(--highlight-color);
             }
             .pulsebutton {
                 animation: pulse 0.75s alternate infinite;
             }
             @keyframes pulse {
                 to {
-                    color: blue;
-                    border-color: blue;
+                    color: var(--highlight-color);
+                    border-color: var(--highlight-color);
                 }
             }
 
@@ -71,7 +76,7 @@
                 position: absolute;
                 width: 4em;
                 height: 4em;
-                background-color: #ff8b00E0;
+                background-color: var(--highlight-color);
                 padding: 0.5em;
                 color:white;
                 place-self: center;
@@ -98,15 +103,33 @@
                 transform: translateZ(-5em);
             }
             .pbox2 {
-                filter: hue-rotate(120deg);
+                background-color: #FF6E6E;
             }
             .pbox3 {
-                filter: hue-rotate(240deg);
+                background-color: #FA9A58;
                 transform: translateZ(5em);
             }
             @keyframes pslide {
                 from {left: 10%;}
                 to {left: calc(90% - 5em);}
+            }
+            .cube1 {
+                background-color: var(--highlight-color);
+            }
+            .cube2 {
+                background-color: #FF6E6E;
+            }
+            .cube3 {
+                background-color: #FA9A58;
+            }
+            .cube4 {
+                background-color: #FFFF90;
+            }
+            .cube5 {
+                background-color: #FFE975;
+            }
+            .cube6 {
+                background-color: #EAFF9E;
             }
             .rotbox {
                 animation: rotbox 2s linear infinite
@@ -154,22 +177,15 @@ selector {
     other-property: other-value;
     ...
 }</pre>
-            <p>Where <code>selector</code> is some string specifying which parts of a web page to apply that styling rule to. For a concrete example of these in action, the following is the code for a page with a single paragraph colored red (CSS being put in the &ltstyle&gt section):</p>
-            <pre class="code">
-&lthtml&gt
-    &lthead&gt
-        &ltstyle&gt
-            p {
-                color:red;
-            }
-        &lt/style&gt
-    &lt/head&gt
-    &ltbody&gt
-        &ltp&gtThis is a paragraph.&lt/p&gt
-    &lt/body&gt
-&lt/html&gt</pre>
+            <p>Where <code>selector</code> is some string specifying which parts of a web page to apply that styling rule to. For a concrete example of these in action, the following makes all web page paragraphs be white text on a purple background:</p>
+<pre class="code">
+p {
+    color: white;
+    background-color: purple;
+}
+</pre>
             <div class="frame" >
-                <p style="color:red">This is a paragraph.</p>
+                <p style="color:white; background-color: var(--code-color); height:fit-content; padding:1em;">This is a paragraph.</p>
             </div>
 
             <h2>Animations and transitions</h2>
@@ -180,8 +196,8 @@ button {
     transition: all 0.5s ease-in-out;
 }
 button:hover {
-    filter: drop-shadow(0em 0em 0.5em lightblue);
-    border-color: blue;
+    filter: drop-shadow(0em 0em 0.5em pink);
+    border-color: pink;
 }</pre>
             <button type="button">Hover to glow!</button>
             <p><code>em</code> here is a unit of length based on font size.<br><br>In order to create the above, I have defined two rules - one is applied to the button in its "default" mode, the other applies to the button only when it is hovered over by the user. When the button is hovered over, the first rule defines the start of the transition and the second the end goal. With the <code>transition</code> keyword, I define which properties are included in my transition ("all" for convenience), how long I want the whole transition to take, and a <i>timing function</i> that helps me control the feel of the final result. Compare the above with changing the timing function to <code>linear</code>:</p>
@@ -193,8 +209,8 @@ button:hover {
 }
 @keyframes pulse {
     to {
-        color: blue;
-        border-color: blue;
+        color: pink;
+        border-color: pink;
     }
 }
 </pre>
@@ -308,12 +324,12 @@ box3 {
 ...
 </pre>
             <div class="frame" style="perspective: 400px">
-                <div class="box" style="transform: translateZ(2.5em)"></div>
-                <div class="box" style="filter: hue-rotate(40deg); transform: translateZ(-2.5em)"></div>
-                <div class="box" style="filter: hue-rotate(80deg); transform: translateY(2.5em) rotateX(90deg)"></div>
-                <div class="box" style="filter: hue-rotate(120deg); transform: translateY(-2.5em) rotateX(-90deg)"></div>
-                <div class="box" style="filter: hue-rotate(160deg); transform: translateX(2.5em) rotateY(90deg)"></div>
-                <div class="box" style="filter: hue-rotate(200deg); transform: translateX(-2.5em) rotateY(-90deg)"></div>
+                <div class="box cube1" style="transform: translateZ(2.5em)"></div>
+                <div class="box cube2" style="transform: translateZ(-2.5em)"></div>
+                <div class="box cube3" style="transform: translateY(2.5em) rotateX(90deg)"></div>
+                <div class="box cube4" style="transform: translateY(-2.5em) rotateX(-90deg)"></div>
+                <div class="box cube5" style="transform: translateX(2.5em) rotateY(90deg)"></div>
+                <div class="box cube6" style="transform: translateX(-2.5em) rotateY(-90deg)"></div>
             </div>
             <p>Well, it took a lot of positioning and little bit of work to get it right, but you can indeed make actual boxes! It's kinda hard to see things properly without an animation, so let's make it rotate. Now we could animate each element individually, but that would require writing a seperate set of keyframes and rules for each of the 6 faces. A better option would be to place the entire set of faces into some kind of holder element and animate that holder instead - much less code, and a lot easier to adjust the look of. Let's try it:</p>
 <pre class="code">
@@ -328,12 +344,12 @@ holder {
 </pre>
             <div class="frame" style="perspective: 400px">
                 <div class="holder">
-                    <div class="box" style="transform: translateZ(2.5em)"></div>
-                    <div class="box" style="filter: hue-rotate(40deg); transform: translateZ(-2.5em)"></div>
-                    <div class="box" style="filter: hue-rotate(80deg); transform: translateY(2.5em) rotateX(90deg)"></div>
-                    <div class="box" style="filter: hue-rotate(120deg); transform: translateY(-2.5em) rotateX(-90deg)"></div>
-                    <div class="box" style="filter: hue-rotate(160deg); transform: translateX(2.5em) rotateY(90deg)"></div>
-                    <div class="box" style="filter: hue-rotate(200deg); transform: translateX(-2.5em) rotateY(-90deg)"></div>
+                    <div class="box cube1" style="transform: translateZ(2.5em)"></div>
+                    <div class="box cube2" style="transform: translateZ(-2.5em)"></div>
+                    <div class="box cube3" style="transform: translateY(2.5em) rotateX(90deg)"></div>
+                    <div class="box cube4" style="transform: translateY(-2.5em) rotateX(-90deg)"></div>
+                    <div class="box cube5" style="transform: translateX(2.5em) rotateY(90deg)"></div>
+                    <div class="box cube6" style="transform: translateX(-2.5em) rotateY(-90deg)"></div>
                 </div>
             </div>
             <p>Wait, where did all the boxes go? You can only see one of them, but they're all still part of the file, and I didn't delete any of their transformations. Unfortunately, this is where jank enters stage left. If you try to rotate any HTML element in 3D, the default behaviour in CSS is to flatten everything within that element - the 3D effects applied to the faces contained in our holder are effectively nullified. They aren't entirely gone, but they've been squished back into 2 dimensions which in our case ruins the effect. There is a way to rectify this - if we specify <code>transform-style: preserve-3d</code> in our holder element, then the effect applied to the faces within are not removed. Take a look now: </p>
@@ -345,12 +361,12 @@ holder {
 </pre>
             <div class="frame" style="perspective: 400px">
                 <div class="holder" style="transform-style: preserve-3d">
-                    <div class="box" style="transform: translateZ(2.5em)"></div>
-                    <div class="box" style="filter: hue-rotate(40deg); transform: translateZ(-2.5em)"></div>
-                    <div class="box" style="filter: hue-rotate(80deg); transform: translateY(2.5em) rotateX(90deg)"></div>
-                    <div class="box" style="filter: hue-rotate(120deg); transform: translateY(-2.5em) rotateX(-90deg)"></div>
-                    <div class="box" style="filter: hue-rotate(160deg); transform: translateX(2.5em) rotateY(90deg)"></div>
-                    <div class="box" style="filter: hue-rotate(200deg); transform: translateX(-2.5em) rotateY(-90deg)"></div>
+                    <div class="box cube1" style="transform: translateZ(2.5em)"></div>
+                    <div class="box cube2" style="transform: translateZ(-2.5em)"></div>
+                    <div class="box cube3" style="transform: translateY(2.5em) rotateX(90deg)"></div>
+                    <div class="box cube4" style="transform: translateY(-2.5em) rotateX(-90deg)"></div>
+                    <div class="box cube5" style="transform: translateX(2.5em) rotateY(90deg)"></div>
+                    <div class="box cube6" style="transform: translateX(-2.5em) rotateY(-90deg)"></div>
                 </div>
             </div>
             <p>While it's nice that you get to choose the behaviour of CSS on transforming nested elements, it is strange that the default behaviour of CSS is to flatten everything - surely keeping everything 3D should be the base case? Much like how people refer to "static" in Java as "the word you throw around to make the errors go away", <code>transform-style: preserve-3d</code> feels very much the equivalent in 3D CSS. It's not easy to understand when it needs to be applied ("wait, it doesn't propagate to child elements?"), and it feels like something that language should just do for you. The difference is, "static" in Java is intuitive once you hear the explanation, but the CSS one still feels silly.<br><br> In any case, we now know we can faithfully model any shape that can be broken down into boxes, and because we can set the background images of these boxes to be any flat shape we can build more complex models out of triangles too - any shape with flat faces can now be perfectly constructed. What about curves? Well, as far as I've seen it is not possible to model any kind of curved surface in CSS. The best we can do is approximate them with some number of flat segments, the more segments used the higher the quality of the approximation. For example, let's try to model a smooth ring:</p>
