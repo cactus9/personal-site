@@ -57,7 +57,7 @@
 
             iframe, .frame {
                 border:1px solid black;
-                min-height: 20ch;
+                min-height: 30ch;
                 width: 100%;
             }
 
@@ -146,6 +146,12 @@
             }
             @keyframes rotholder {
                 to {transform: rotateZ(360deg) rotateY(360deg);}
+            }
+            img {
+                display: block;
+                height: 30ch
+                ;margin-left:auto;
+                margin-right:auto;
             }
         </style>
     </head>
@@ -373,6 +379,23 @@ holder {
             <iframe src="./ring.html"></iframe>
             <p>It gets pretty smooth as the number of sides increase, but I'm noticing some uncomfortable gapping between the boxes - a bit of untidy math goes into figuring out what the width of each box should be, and it seems like decimals getting cut off by CSS leads to occasional pixel-wide slits. With garish enough colours no-one will notice, but it's not ideal. Brief aside: I showed the above demo to one of my lecturers, and she responded that I would have been great at designing websites in the 90s. I'm still recovering from that burn.<br><br>To round off this section, I'd like to talk about stars a bit. Stars were one of the first things I tried to make when I first learned Python and turtle graphics at school, and I was surprised by how complex they got. We all know the simple 5-pointed pentagram star, as well as the 6-pointed Star of David, but you can actually make stars with any number of points. What's more, you can change the character of the star by adjusting how many points are between the endpoints of any line in the star. We can generalise this using Schläfli notation - the pentagram is {5/2}, as it is a 5-pointed star and to draw a line from one point you count 2 points along to the other. This is messy to explain in words, so why not an interactive demo:</p>
             <iframe src="./star.html"></iframe>
+            <h3>Some Firefox-specific jank</h3>
+            Overall, the design of these features is pretty solid. It's expressive and powerful, and while the whole <code>transform-style: preserve-3d</code> thing is slightly embarrassing, the ability to apply 3D animations to nested elements with their own animations is incredibly useful.<br><br>Be that as it may, there are still some rendering quirks that I take issue with. Depending on the resolution of your screen and the browser you use, you may have noticed that the edge of a box becomes somewhat jagged as it rotates - pay attention to the top and bottom edges of our example from before:</p>
+            <div class="frame">
+                <div class="box rotbox"></div>
+            </div>
+            <p>Note that this behaviour is visible on Firefox but not on Chrome or Edge, and it may not even be visible on your version of Firefox. For reference, below is a screenshot of what appears for me.</p>
+            <img src="./jagged.jpg" alt="zoomed-in screenshot of rotating box showing jagged pixel edges">
+            <p>What's going on here is called <i>spatial aliasing</i>. The box's top line has that slight slant which causes it to intersect pixels to various degrees. In the logic of Firefox's rendering engine a pixel can only be filled or unfilled, so there's an uncomfortable jump where the renderer decides that a pixel is sufficiently covered to be filled, leading to our jagged edge. What the other engines do is known as <i>anti-aliasing</i>. Instead of a pixel being completely filled or empty, it can be filled to various degrees by adjusting the intensity of its colour. Up close this makes edges look fuzzy and pixellated, but at small scales this leads to a very smooth finish. For an example of this, let's consider a case where Firefox applies it too eagerly: a dot, translated forwards:</p>
+            <div class="frame" style="perspective-origin: center;">
+                <input type="range" min="0" max="35" value="0" oninput="document.getElementById('dot').style.transform = `translateZ(${this.value}em)`" style="width:50%; margin-left:25%; margin-right: 25%; margin-bottom: 30ch; margin-top:1em;">
+                <div class="box" id="dot" style="border-radius:50%; width:1em;height:1em;"></div>
+            </div>
+            <p>And once more, a screenshot of how this renders on my browser:</p>
+            <img src="./antidot.png" alt="zoomed-in screenshot of dot translated forwards showing visible anti-aliasing">
+            <p>We're getting this fuzzy edge even though logically it's just meant to be a circle! I know for a fact that if I asked CSS to draw a circle that big without any transformations, there would be no visible anti-aliasing on it whatsoever. Instead, we get something that should be a clean render but is instead quite messy. The edges of the dot show strange pseudo-pixels - pixel boundaries that are not there anymore at larger sizes. What I imagine happened is that the dot is rendered at a small size with an approprate amount of anti-aliasing for that scale, then simply blown up to match the perspective. There's no recalculation of what the edges should look like for the anti-aliasing, which is what makes these examples particularly aggregious in my mind: their behaviour is the reverse of what I want it be! The slant of the box's edge is recalculated but not anti-aliased, and the curve of the dot is anti-aliased but not recalculated. Janky and ugly.</p>
+            <h2>Filters</h2>
+            <p>Lastly, I'd like to touch on the filters module in CSS.</p>
         </article>
         <footer></footer>
 
