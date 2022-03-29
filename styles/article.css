@@ -94,8 +94,11 @@ figure {
 }
 
 figure img {
-    width:100%;
+    max-width: 100%;
     max-height: 80vh;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 figcaption {
@@ -123,8 +126,8 @@ th {
         filter: drop-shadow(0px 0px 20px black);
     }
     figure img {
-        width:100%;
-        max-height: 40vh;
+        max-width:100%;
+        max-height: 60vh;
     }
 
     #home-button {
