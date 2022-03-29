@@ -67,6 +67,11 @@
              left:50%;
              transform: translate(-50%);
          }
+         #nsides {
+             height: fit-content;
+             place-self: center;
+             font-size: 1em;
+         }
 
         </style>
         <script type="text/javascript">
@@ -116,7 +121,7 @@
         <div id='holder'><div id='inner'></div></div>
         <div id="controlBar">
             <p style="grid-column: 1">Number of sides:</p>
-            <input type="range" id="nsides" min="3" max="50" oninput="nChangeReact(this.value)" value="5" style="grid-column: 2">
+            <input type="number" id="nsides" min="3" max="50" oninput="nChangeReact(this.value)" value="5" style="grid-column: 2">
         </div>
     </body>
 </html>
