@@ -28,11 +28,11 @@
 
          @keyframes outerrot {
              from {
-                 transform: rotateX(0deg) translate3d(-50%, -50%, 0px);
+                 transform: rotateX(0turn) translate3d(-50%, -50%, 0px);
              }
 
              to {
-                 transform: rotateX(360deg)  translate3d(-50%, -50%, 0px);
+                 transform: rotateX(1turn) translate3d(-50%, -50%, 0px);
              }
          }
 
@@ -52,18 +52,59 @@
          }
 
          .two {
-             animation-delay: 1s;
-             animation-duration: 13s;
+             animation: outer2 15s infinite linear;
+         }
+         @keyframes outer2 {
+             from {
+                 transform: rotateX(-0.5turn) rotateZ(0turn) translate3d(-50%, -50%, 0px);
+             }
+
+             to {
+                 transform: rotateX(0.5turn) rotateZ(1turn) translate3d(-50%, -50%, 0px);
+             }
          }
 
          .adjustable {
              background-color: #41d2d2;
-             color: #ff8b00;
              position: relative;
              transform-origin: 0px 0px;
-             height: 10vh;
+             height: calc(10 * var(--scale));
              filter: drop-shadow(0 0 calc(2 * var(--scale)) #41d2d2);
-             background-blend-mode: color-burn;
+             animation: pulse 1s alternate infinite linear;
+         }
+
+         @keyframes pulse {
+             to {
+                 background-color: #7bf7aa;
+
+                 filter: drop-shadow(0 0 calc(2 * var(--scale)) #7bf7aa);
+             }
+         }
+
+         .adjustable:nth-child(2n)::after {
+             content: "";
+             /* Make the eye */
+             background-image: radial-gradient(black 30%, #666 55%, black 70%);
+             background-position: top;
+             border-radius: 50%;
+             width: calc(5.5 * var(--scale));
+             height: calc(8 * var(--scale));
+             /* Put it in the center */
+             position: absolute;
+             top: 50%;
+             left: 50%;
+             transform: translate(-50%, -50%);
+             /*blink*/
+             animation: blink 1s alternate infinite ease-in;
+         }
+
+         @keyframes blink {
+             85% {
+                 height: calc(8 * var(--scale));
+             }
+             to {
+                 height: calc(1 * var(--scale));
+             }
          }
 
         </style>
@@ -98,7 +139,13 @@
                     #div${i} {
                         width: ${width}vw;
                         transform: rotateY(${i / n}turn) translate3d(-50%, calc(-1 * ${i} * 100% - 50%), ${dist}vw);
-                    }`;
+                        animation-delay: -${i/15}s;
+                    }
+
+                    #div${i}::after {
+                        animation-delay: -${Math.random()*2}s;
+                    }
+                    `;
                 }
             }
         }
