@@ -1,0 +1,19 @@
+Things to make in CSS
+
+Biblically correct angel
+- moving rings
+- wings of something cool?
+- glowing eye - some fun drop-shadow possible here
+- ooo maybe we fucks with the blending modes tho
+
+fox
+- so the fox animation casts a shadow on the wall, revealing text
+    - what's the text?
+    - I could write a poem or a stream-of-consciousness
+- need to model a lamp or a torch or something
+- Might be cool to have a glow effect from the torch - using the counter-spin technique to make it circular might be a nice way to go about that
+
+Waves? PLaying with text and the deep
+
+MOdelling more complex iris petals - maybe building up to a bouquet
+Pagoda?
