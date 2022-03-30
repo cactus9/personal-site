@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="../styles/fonts.css">
+        <style media="screen">
+        :root {
+            --scale: min(1vh, 1vw)
+        }
+        * {
+            transform-style: preserve-3d;
+        }
+        body {
+            margin: 0px;
+            perspective: 900px;
+            perspective-origin: 50vw 50vh;
+            overflow: hidden;
+            background-color: #1a1a1a;
+        }
+        .outer{
+            position: absolute;
+            width: 0px;
+            height: 0px;
+            top: 50vh;
+            left: 50vw;
+            animation: outerrot 17s linear infinite;
+        }
+
+
+         @keyframes outerrot {
+             from {
+                 transform: rotateX(0deg) translate3d(-50%, -50%, 0px);
+             }
+
+             to {
+                 transform: rotateX(360deg)  translate3d(-50%, -50%, 0px);
+             }
+         }
+
+         .inner {
+             transform-style: preserve-3D;
+             width: 0px;
+             height: 0px;
+             animation: innerrot 8s infinite linear;
+         }
+         @keyframes innerrot {
+             from {
+                 transform: rotateY(0turn);
+             }
+             to {
+                 transform:rotateY(1turn);
+             }
+         }
+
+         .two {
+             animation-delay: 1s;
+             animation-duration: 13s;
+         }
+
+         .adjustable {
+             background-color: #41d2d2;
+             color: #ff8b00;
+             position: relative;
+             transform-origin: 0px 0px;
+             height: 10vh;
+             filter: drop-shadow(0 0 calc(2 * var(--scale)) #41d2d2);
+             background-blend-mode: color-burn;
+         }
+
+        </style>
+        <script type="text/javascript">
+
+        const style = document.createElement('style');
+        style.type = 'text/css';
+        document.head.appendChild(style);
+
+        function makeNRing(n, vw_percentage) {
+            //Draw an n-sided circle of diameter vw_percentage
+            const radius = vw_percentage/2;
+            const dist = radius * Math.cos( Math.PI / n);
+            const width = 2 * radius * Math.sin( Math.PI / n);
+
+            let innerHolders = document.getElementsByClassName('inner');
+            for (var innerHolder of innerHolders) {
+                //Refresh everything
+                innerHolder.innerHTML = '';
+                style.innerHTML = '';
+
+                for (var i = 0; i < n; i++) {
+                    //Make the element
+                    let thisdiv = document.createElement('div');
+                    thisdiv.classList.add("adjustable");
+                    thisdiv.id = "div"+i;
+                    innerHolder.appendChild(thisdiv);
+
+                    //Now style it
+
+                    style.innerHTML += `
+                    #div${i} {
+                        width: ${width}vw;
+                        transform: rotateY(${i / n}turn) translate3d(-50%, calc(-1 * ${i} * 100% - 50%), ${dist}vw);
+                    }`;
+                }
+            }
+        }
+
+        </script>
+    </head>
+    <body onload="makeNRing(30,40)">
+        <div class="outer"><div class="inner"></div></div>
+        <div class="outer two"><div class="inner"></div></div>
+    </body>
+</html>
