@@ -3,11 +3,19 @@
     <head>
         <meta charset="utf-8">
         <title>CSS Demos</title>
+        <link rel="stylesheet" href="../../styles/fonts.css">
         <style>
+            :root {
+                --dark-colour: #444;
+            }
             body {
                 margin: 0;
                 font-family:"Noto Sans",sans-serif;
-                font-size: min(20px, 5vw);
+                font-size: min(25px, 6vw);
+            }
+            a {
+                text-decoration: none;
+                color: unset;
             }
 
             .democard {
@@ -15,8 +23,10 @@
                 width: max(14em, 20vw);
                 border-radius: 2em;
                 box-shadow: 0 0.5em 0.8em #aaa;
-                padding: 1em;
                 transition: all 0.1s ease-in;
+                display: grid;
+                grid-template-rows: calc(100% - 6em) 6em;
+                background-image: linear-gradient(to bottom, var(--dark-colour) calc(100% - 6em), white calc(100% - 6em));
             }
             .democard:hover {
                 position:relative;
@@ -32,21 +42,32 @@
                 flex-wrap: wrap;
                 justify-content: center;
             }
+            .cardflex img {
+                width: 80%;
+                place-self: center;
+                filter: drop-shadow(0 0 1em #333);
+            }
+            .cardflex p {
+                place-self: center;
+                font-size: 1.75em;
+                color: var(--dark-colour);
+            }
         </style>
     </head>
     <body>
         <div class="cardflex">
+            <a href="./angel">
+                <div class="democard">
+                    <img src="./angelthumb.svg" alt="stylised rendition of a wheeled angel">
+                    <p>Ophanim</p>
+                </div>
+            </a>
 
-            <div class="democard">
-                <figure>
-                    <figcaption>bruh moment</figcaption>
-                </figure>
-            </div>
-            <div class="democard">
-                <figure>
-                    <figcaption>whatup my guy</figcaption>
-                </figure>
-            </div>
+            <a href="./">
+                <div class="democard">
+                    <p>Whatup</p>
+                </div>
+            </a>
         </div>
     </body>
 </html>
