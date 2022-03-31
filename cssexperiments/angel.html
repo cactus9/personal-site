@@ -139,19 +139,21 @@
              background-repeat: no-repeat;
              background-size: contain;
              background-position: center;
-             animation: coal2 6s infinite linear;
+             animation: coal2 6s infinite linear, throb 1s infinite alternate linear;
          }
          @keyframes coal2 {
-             50% {
-                 filter: drop-shadow(0 0 1em yellow) drop-shadow(0 0 3em red);
-             }
              to {
                  transform: translate(-50%, -50%) rotate(-1turn);
-                 filter: drop-shadow(0 0 1em yellow) drop-shadow(0 0 3em red);
+             }
+         }
+         @keyframes throb {
+             to {
+                 filter: drop-shadow(0 0 1em white) drop-shadow(0 0 3em yellow) drop-shadow(0 0 5em red);
              }
          }
 
         </style>
+        <title>Take blessings</title>
         <script type="text/javascript">
 
         const style = document.createElement('style');
