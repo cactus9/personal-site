@@ -107,6 +107,50 @@
              }
          }
 
+         .coals::before {
+             position: absolute;
+             content: "";
+             /*give it life*/
+             width: 200px;
+             height: 200px;
+             background-image: url('./coals.svg');
+             z-index: -1;
+             background-repeat: no-repeat;
+             background-size: contain;
+             background-position: center;
+             animation: coal1 10s infinite linear;
+         }
+         @keyframes coal1 {
+             to {
+                 transform: rotate(2turn);
+             }
+         }
+
+         .coals {
+             position: absolute;
+             top: 50vh;
+             left: 50vw;
+             transform: translate(-50%, -50%);
+             /*give it life*/
+             width: 200px;
+             height: 200px;
+             filter: drop-shadow(0 0 1em yellow) drop-shadow(0 0 3em red);
+             background-image: url('./r1.svg');
+             background-repeat: no-repeat;
+             background-size: contain;
+             background-position: center;
+             animation: coal2 6s infinite linear;
+         }
+         @keyframes coal2 {
+             50% {
+                 filter: drop-shadow(0 0 1em yellow) drop-shadow(0 0 3em red);
+             }
+             to {
+                 transform: translate(-50%, -50%) rotate(-1turn);
+                 filter: drop-shadow(0 0 1em yellow) drop-shadow(0 0 3em red);
+             }
+         }
+
         </style>
         <script type="text/javascript">
 
@@ -155,5 +199,8 @@
     <body onload="makeNRing(30,40)">
         <div class="outer"><div class="inner"></div></div>
         <div class="outer two"><div class="inner"></div></div>
+        <div class="coals">
+
+        </div>
     </body>
 </html>
