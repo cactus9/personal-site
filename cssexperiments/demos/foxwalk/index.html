@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>FOXWALK</title>
+        <style>
+            body {
+                margin: 0;
+                perspective: 800px;
+                background-color: #111;
+                display: grid;
+                perspective-origin: top center;
+                width:100vw;
+                height:100vh;
+            }
+            * {
+                transform-style: preserve-3d;
+            }
+            .wall {
+                background-image: radial-gradient(circle closest-corner at 50% 100%, #ffd, #1a1a1a 80%, #111);
+                width: 100em;
+                height: 50em;
+                position: absolute;
+                place-self:center;
+                transform: translateZ(-50em);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wall">
+
+        </div>
+
+    </body>
+</html>
