@@ -72,10 +72,6 @@ article a:hover {
     background-color: black;
 }
 
-article p {
-    text-align: justify;
-}
-
 header h1 {
     margin-top: max(80px, 15vh);
     margin-bottom: max(80px, 15vh);
