@@ -12,6 +12,7 @@ fox
     - I could write a poem or a stream-of-consciousness
 - need to model a lamp or a torch or something
 - Might be cool to have a glow effect from the torch - using the counter-spin technique to make it circular might be a nice way to go about that
+--------------Can't do because of cors bullshit
 
 Waves? PLaying with text and the deep
 

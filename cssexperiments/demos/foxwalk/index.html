@@ -4,31 +4,84 @@
         <meta charset="utf-8">
         <title>FOXWALK</title>
         <style>
+
+        :root {
+            --light: #ffd;
+            --night: #111;
+            --grey: #222;
+            --darkwall: #141414;
+
+            --size: 20vh;
+            --height: 50vh;
+            --width: 100vh;
+            --gap: 25vh;
+        }
             body {
                 margin: 0;
                 perspective: 800px;
-                background-color: #111;
+                background-color: var(--night);
                 display: grid;
                 perspective-origin: top center;
                 width:100vw;
                 height:100vh;
+                overflow: hidden;
             }
-            * {
-                transform-style: preserve-3d;
-            }
-            .wall {
-                background-image: radial-gradient(circle closest-corner at 50% 100%, #ffd, #1a1a1a 80%, #111);
-                width: 100em;
-                height: 50em;
+
+            .scene {
                 position: absolute;
                 place-self:center;
-                transform: translateZ(-50em);
+                animation: rot 15s infinite alternate ease-in-out;
+                animation-delay: -7.5s;
+                transform-style: preserve-3d;
+            }
+            @keyframes rot {
+                from {
+                    transform: translateZ(-50em) rotateY(-0.15turn);
+                }
+                to {
+                    transform: translateZ(-50em) rotateY(0.15turn);
+                }
+            }
+
+            .shadowwall {
+                background-image: radial-gradient(circle farthest-side at 50% 100%, var(--light), var(--grey) 80%, var(--darkwall));
+
+                width: var(--width);
+                height: var(--height);
+                position: absolute;
+                transform: translate(-50%, -50%);
+
+                transform-style: preserve-3d;
+            }
+            .foxwall {
+                background-color: white;
+
+                width: var(--width);
+                height: var(--height);
+                position: absolute;
+                transform: translate(-50%, -50%) translateZ(var(--gap));
+                mask-image: url('../angel/coals.svg');
+
+                transform-style: preserve-3d;
+            }
+            .shadow {
+                position: absolute;
+                width: calc(var(--size) * 2);
+                height: calc(var(--size) * 2);
+                top:100%;
+                transform: translateY(-100%);
+                color: white;
             }
         </style>
     </head>
     <body>
-        <div class="wall">
-
+        <div class="scene">
+            <div class="shadowwall">
+                <div class="shadow"><p>same but whatever</p>
+                </div>
+            </div>
+            <div class="foxwall"><img src="../../analysis/antidot.png" alt="">
+            </div>
         </div>
 
     </body>
