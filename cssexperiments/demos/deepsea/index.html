@@ -8,23 +8,83 @@
                 --green: #146411;
                 --purple: #471a4d;
                 --blue: #214a80;
+                font-size: 1vw;
+
+                --height: 10rem;
+                --depth: 200vw;
             }
             body {
                 margin: 0;
                 background-color: #1a1a1a;
-                height: 200vw;
+                height: var(--depth);
+                overflow-x: hidden;
+                background-image: linear-gradient(to bottom, var(--purple), transparent 30vh);
             }
-            .wavecurve {
-                fill: var(--green);
-                opacity: 60%
+            .wavelayer {
+                position: absolute;
+                top: calc(50% - var(--height) / 2);
+                width: 100%;
+                height: calc(var(--depth) - 50vh + var(--height) / 2)
+            }
+            .waves {
+                position: relative;
+                top: 1px;
+                height: var(--height);
+                background-image: url('./wave.svg');
+                background-size: contain;
+                width: calc(100vw + 4 * var(--height));
+                animation: flow 3s infinite linear;
+            }
+            @keyframes flow {
+                to{
+                    transform: translateX(calc(var(--height) * -4));
+                }
+            }
+            .water {
+                background-image: linear-gradient(to bottom, var(--green), black 50%, var(--blue));
+                width: 100%;
+                height: calc(100%  - var(--height));
+            }
+
+            #cursor {
+                position: absolute;
+                width: 30rem;
+                height: 30rem;
+                background-image: radial-gradient(closest-side, #fff8,transparent);
+                z-index: 10;
+                transform: translate(-50%, -50%);
+                top:50%;
+                left: 50%;
+            }
+            .overlay {
+                position: fixed;
+                width: 100vw;
+                height: 100vh;
+                background-color: black;
+                mix-blend-mode: hard-light;
+                opacity: 90%;
+                z-index: 5;
             }
         </style>
     </head>
     <body>
-        <svg width="160mm" height="39.74mm" version="1.1" viewBox="0 0 160 39.74" xmlns="http://www.w3.org/2000/svg">
-         <g transform="translate(-25.14 -132.6)">
-          <path d="m25.14 172.4c51.56 0.207 53.3-39.74 79.67-39.73 26.37 4e-3 32.36 39.86 80.33 39.73z" class='wavecurve' fill="#ffffff"/>
-         </g>
-        </svg>
+
+        <div class="wavelayer">
+            <div class="waves"></div>
+            <div class="water"></div>
+        </div>
+
+        <div class="overlay"><div id="cursor"></div></div>
+        <script type="text/javascript">
+            document.onmousemove = reposCursor;
+            document.onscroll = reposCursor;
+            const cursor = document.getElementById('cursor');
+
+            function reposCursor(event) {
+              cursor.style.top = `${event.clientY}px`;
+              cursor.style.left = `${event.clientX}px`;
+
+            }
+        </script>
     </body>
 </html>
