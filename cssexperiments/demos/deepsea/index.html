@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
-        <title></title>
+        <title>Deepsea</title>
         <style media="screen">
             :root {
                 --green: #146411;
@@ -18,7 +18,7 @@
                 background-color: #1a1a1a;
                 height: var(--depth);
                 overflow-x: hidden;
-                background-image: linear-gradient(to bottom, var(--purple), transparent 30vh);
+                background-image: linear-gradient(to bottom, var(--purple), transparent 60vh);
             }
             .wavelayer {
                 position: absolute;
@@ -65,6 +65,16 @@
                 opacity: 90%;
                 z-index: 5;
             }
+            .stars-front {
+                width: 100vw;
+                height: calc(50vh - var(--height) / 2);
+                background-image: url("./starrysky.png");
+                background-size: 100% auto;
+                background-repeat: no-repeat;
+                position: absolute;
+                top: 0;
+                z-index: 10;
+            }
         </style>
     </head>
     <body>
@@ -75,6 +85,8 @@
         </div>
 
         <div class="overlay"><div id="cursor"></div></div>
+        <div class="stars-front"></div>
+
         <script type="text/javascript">
             document.onmousemove = reposCursor;
             document.onscroll = reposCursor;
@@ -86,5 +98,6 @@
 
             }
         </script>
+
     </body>
 </html>
