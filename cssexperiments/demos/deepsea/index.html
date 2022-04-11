@@ -11,7 +11,7 @@
                 font-size: 1vw;
 
                 --height: 10rem;
-                --depth: 200vw;
+                --depth: 200rem;
             }
             body {
                 margin: 0;
@@ -22,7 +22,7 @@
             }
             .wavelayer {
                 position: absolute;
-                top: calc(50% - var(--height) / 2);
+                top: calc(50vh - var(--height) / 2);
                 width: 100%;
                 height: calc(var(--depth) - 50vh + var(--height) / 2)
             }
@@ -46,7 +46,7 @@
                 height: calc(100%  - var(--height));
             }
 
-            #cursor {
+            #cursor, .light {
                 position: absolute;
                 width: 30rem;
                 height: 30rem;
@@ -57,13 +57,15 @@
                 left: 50%;
             }
             .overlay {
+                mix-blend-mode: hard-light;
+                opacity: 90%;
+                z-index: 5;
+            }
+            .screen {
                 position: fixed;
                 width: 100vw;
                 height: 100vh;
                 background-color: black;
-                mix-blend-mode: hard-light;
-                opacity: 90%;
-                z-index: 5;
             }
             .stars-front {
                 width: 100vw;
@@ -75,6 +77,44 @@
                 top: 0;
                 z-index: 10;
             }
+            .imgholder img {
+                position: absolute;
+            }
+
+            #angler {
+                position:absolute;
+                top:var(--depth);
+                transform: translateY(-100%);
+                right: 0;
+                width: 50vw;
+                height: 50vw; /* Magic numbers, I know, but it is what it is. */
+                overflow: hidden;
+            }
+            #anglerjaw, #anglerbody {
+                width: 100%;
+            }
+            #anglerjaw {
+                transform-origin: 60% 95%;
+                animation: jaw 6s alternate infinite ease-in-out;
+            }
+            @keyframes jaw {
+                to {
+                    transform: rotate(-0.07turn);
+                }
+            }
+            #anglerlight {
+                position: absolute;
+                left: 59vw;
+                top: calc(var(--depth) - 40vw);
+                background-image: radial-gradient(closest-side, #fffa,transparent);
+                filter: drop-shadow(0 0 0em #214a8080);
+                animation: pulse 1s alternate infinite linear;
+            }
+            @keyframes pulse {
+                to {
+                    filter: drop-shadow(0 0 4em #8888);
+                }
+            }
         </style>
     </head>
     <body>
@@ -83,8 +123,15 @@
             <div class="waves"></div>
             <div class="water"></div>
         </div>
+        <div class="imgholder" id="angler">
+            <img src="./anglerbody.png" id="anglerbody">
+            <img src="./anglerjaw.png" id="anglerjaw">
+        </div>
 
-        <div class="overlay"><div id="cursor"></div></div>
+        <div class="overlay">
+            <div class="screen"><div id="cursor"></div></div>
+            <div class="light" id='anglerlight'></div>
+        </div>
         <div class="stars-front"></div>
 
         <script type="text/javascript">
