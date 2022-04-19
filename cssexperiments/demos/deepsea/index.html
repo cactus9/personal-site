@@ -77,21 +77,21 @@
                 top: 0;
                 z-index: 10;
             }
+            .imgholder {
+                position:absolute;
+            }
             .imgholder img {
                 position: absolute;
+                width: 100%;
             }
 
             #angler {
-                position:absolute;
                 top:var(--depth);
                 transform: translateY(-100%);
                 right: 0;
                 width: 50vw;
                 height: 50vw; /* Magic numbers, I know, but it is what it is. */
                 overflow: hidden;
-            }
-            #anglerjaw, #anglerbody {
-                width: 100%;
             }
             #anglerjaw {
                 transform-origin: 60% 95%;
@@ -115,14 +115,51 @@
                     filter: drop-shadow(0 0 4em #8888);
                 }
             }
+
+            #lantern {
+                width: 10%;
+                left: 65%;
+                animation: bob 1.5s alternate infinite cubic-bezier(.35,.03,.35,1.02);
+                animation-delay: -0.7s;
+                transform: translateY(-5vw);
+            }
+            @keyframes bob {
+                from {
+                    top: calc(50vh - var(--height) / 2);
+                }
+                to {
+                    top: calc(50vh + var(--height) / 2);
+                }
+            }
+            #lantern img {
+                transform-origin: center;
+                transform: rotate(0.025turn);
+                animation: spin 1.5s alternate infinite ease-in-out;
+            }
+            @keyframes spin {
+                to {
+                    transform: rotate(-0.025turn);
+                }
+            }
+            #lanternlight {
+                left: calc(65% + 5vw);
+                animation: bob 1.5s alternate infinite cubic-bezier(.35,.03,.35,1.02);
+                animation-delay: -0.7s;
+                width: 15rem;
+                height: 15rem;
+            }
         </style>
     </head>
     <body>
-
+        <div class="imgholder" id='lantern'>
+            <img src="./lantern.png">
+        </div>
         <div class="wavelayer">
             <div class="waves"></div>
             <div class="water"></div>
         </div>
+
+
         <div class="imgholder" id="angler">
             <img src="./anglerbody.png" id="anglerbody">
             <img src="./anglerjaw.png" id="anglerjaw">
@@ -131,6 +168,7 @@
         <div class="overlay">
             <div class="screen"><div id="cursor"></div></div>
             <div class="light" id='anglerlight'></div>
+            <div class="light" id='lanternlight'></div>
         </div>
         <div class="stars-front"></div>
 
