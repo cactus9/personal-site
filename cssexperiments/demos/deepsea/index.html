@@ -11,7 +11,7 @@
                 font-size: 1vw;
 
                 --height: 10rem;
-                --depth: 200rem;
+                --depth: max(200rem, 100vh);
             }
             body {
                 margin: 0;
@@ -148,6 +148,32 @@
                 width: 15rem;
                 height: 15rem;
             }
+
+            .barrel {
+                width: 10rem;
+                animation: sway 4s alternate infinite ease-in-out;
+            }
+            @keyframes sway {
+                to {
+                    transform: translate(-3rem, -1rem);
+                }
+            }
+
+            #barrel1 {
+                top: 35rem;
+                left: 50rem;
+            }
+            #barrel1 img {
+                transform: rotate(0.05turn);
+            }
+            #barrel2 {
+                top: 50rem;
+                left: 40rem;
+                animation-delay: -2s;
+            }
+            #barrel2 img {
+                transform: rotate(-0.1turn);
+            }
         </style>
     </head>
     <body>
@@ -156,9 +182,15 @@
         </div>
         <div class="wavelayer">
             <div class="waves"></div>
-            <div class="water"></div>
+            <div class="water">
+                <div class="imgholder barrel" id='barrel1'>
+                    <img src="./barrel.png">
+                </div>
+                <div class="imgholder barrel" id='barrel2'>
+                    <img src="./barrel.png">
+                </div>
+            </div>
         </div>
-
 
         <div class="imgholder" id="angler">
             <img src="./anglerbody.png" id="anglerbody">
