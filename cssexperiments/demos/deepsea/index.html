@@ -151,11 +151,21 @@
 
             .barrel {
                 width: 10rem;
-                animation: sway 4s alternate infinite ease-in-out;
+                animation: barrelsway 4s alternate infinite ease-in-out;
             }
-            @keyframes sway {
+            @keyframes barrelsway {
                 to {
                     transform: translate(-3rem, -1rem);
+                }
+            }
+
+            .ship {
+                width: 45rem;
+                animation: shipsway 4s alternate infinite ease-in-out;
+            }
+            @keyframes shipsway {
+                to {
+                    transform: translate(-1.5rem, -0.5rem);
                 }
             }
 
@@ -174,6 +184,15 @@
             #barrel2 img {
                 transform: rotate(-0.1turn);
             }
+
+            #ship1{
+                top: 80rem;
+            }
+            #ship2 {
+                top: 81rem;
+                left:3rem;
+                animation-delay: -1s;
+            }
         </style>
     </head>
     <body>
@@ -188,6 +207,13 @@
                 </div>
                 <div class="imgholder barrel" id='barrel2'>
                     <img src="./barrel.png">
+                </div>
+
+                <div class="imgholder ship" id='ship1'>
+                    <img src="./shipwreck.png">
+                </div>
+                <div class="imgholder ship" id='ship2'>
+                    <img src="./shipchunks.png">
                 </div>
             </div>
         </div>
