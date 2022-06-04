@@ -150,20 +150,20 @@
         </style>
         <style media="screen">
             header {
-                background-image: url("./siphonophore.jpg");
+                background-image: url("./images/siphonophore.jpg");
                 background-position-y: 10%;
                 background-repeat: no-repeat;
                 background-size: cover;
             }
             footer {
-                background-image: url("./siphonophore.jpg");
+                background-image: url("./images/siphonophore.jpg");
                 background-position: bottom;
                 background-repeat: no-repeat;
                 background-size: cover;
             }
         </style>
         <meta name="title" property="og:title" content="CSS is Kinda Wild">
-        <meta name="image" property="og:image" content="./siphonophore.jpg">
+        <meta name="image" property="og:image" content="./images/siphonophore.jpg">
         <meta property="og:type" content="article">
         <meta name="description" property="og:description" content="An exploration and analysis of the design of some CSS features.">
         <meta name="author" content="Evan Caton">
@@ -416,7 +416,7 @@ holder {
             </div>
             <p>Note that this behaviour is visible on Firefox but not on Chrome or Edge, and it may not even be visible on your version of Firefox. This is largely due to different browsers using different rendering engines for CSS. For reference, below is a screenshot of what appears for me.</p>
             <figure>
-                <img src="./jagged.jpg" alt="zoomed-in screenshot of rotating box showing jagged pixel edges">
+                <img src="./images/jagged.jpg" alt="zoomed-in screenshot of rotating box showing jagged pixel edges">
             </figure>
             <p>What's going on here is called <i>spatial aliasing</i>. The box's top line has that slight slant which causes it to intersect pixels to various degrees. It seems that in the logic of Firefox's rendering engine a pixel can only be filled or unfilled, so there's an uncomfortable jump where the renderer decides that a pixel is sufficiently covered to be filled, leading to our jagged edge. What the other engines do is known as <i>anti-aliasing</i>. Instead of a pixel being completely filled or empty, it can be filled to various degrees by adjusting the intensity of its colour. Up close this makes edges look fuzzy and pixellated, but at small scales this leads to a very smooth finish. For an example, let's consider a case where Firefox applies this same technique too eagerly: a dot, translated forwards:</p>
             <div class="frame" style="perspective-origin: center;">
@@ -425,7 +425,7 @@ holder {
             </div>
             <p>And once more, a screenshot of how this renders on my browser:</p>
             <figure>
-                <img src="./antidot.png" alt="zoomed-in screenshot of dot translated forwards showing visible anti-aliasing">
+                <img src="./images/antidot.png" alt="zoomed-in screenshot of dot translated forwards showing visible anti-aliasing">
             </figure>
             <p>We're getting this fuzzy edge even though logically it's just meant to be a circle! If I asked CSS to draw a circle that big without any transformations, there would be no visible anti-aliasing on it whatsoever and the edges would be smooth and crisp. Instead, we get something that should be a clean render but is actually quite messy. The edges of the dot show strange pseudo-pixels - pixel boundaries that are not there anymore at larger sizes. What I imagine happened is that the dot was rendered at a small size with an approprate amount of anti-aliasing for that scale, then was simply blown up to match the perspective. There's no recalculation of what the circle's edges should look like for the anti-aliasing, which is what makes these two examples particularly aggregious in my mind: their behaviour is the reverse of what I want it be! The slant of the box's edge is recalculated but not anti-aliased, and the curve of the dot is anti-aliased but not recalculated.</p>
             <h2>Filters</h2>
@@ -436,11 +436,11 @@ img {
 }
 </pre>
             <figure>
-                <img src="./warwick.jpg" alt="warwick campus in autumn">
+                <img src="./images/warwick.jpg" alt="warwick campus in autumn">
                 <figcaption>Unfiltered image of the University of Warwick's campus</figcaption>
             </figure>
             <figure>
-                <img src="./warwick.jpg" alt="warwick campus in autumn, filtered" style = "filter: invert(75%) drop-shadow(0.5em 0.5em 3px #FF6E6E);">
+                <img src="./images/warwick.jpg" alt="warwick campus in autumn, filtered" style = "filter: invert(75%) drop-shadow(0.5em 0.5em 3px #FF6E6E);">
                 <figcaption>Filtered image</figcaption>
             </figure>
             <p>While you are limited to the handful or so of predefined functions built-in to this feature, there is support planned for users to reference their own filter effects from SVG files.</p>
