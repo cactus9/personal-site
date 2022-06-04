@@ -125,6 +125,7 @@ h1,h2,h3, #me {
     width: 0;
     top: 62%;
     left: 23%;
+    cursor: pointer;
 }
 #butterfly img {
     display: block;
