@@ -21,6 +21,14 @@
             overflow: hidden;
             background-color: #1a1a1a;
         }
+
+        #wrapper{ /* So on mobile the whole viewport-width thing actually ignores overflow for whatever fucking reason, so having a position:relative wrapper for everything is a fix for that */
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+            overflow: hidden;
+        }
+
         .outer{
             position: absolute;
             width: 0px;
@@ -204,10 +212,12 @@
         </script>
     </head>
     <body onload="makeNRing(30,40)">
-        <div class="outer"><div class="inner"></div></div>
-        <div class="outer two"><div class="inner"></div></div>
-        <div class="coals">
+        <div class="wrapper">
+            <div class="outer"><div class="inner"></div></div>
+            <div class="outer two"><div class="inner"></div></div>
+            <div class="coals">
 
+            </div>
         </div>
     </body>
 </html>
