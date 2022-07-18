@@ -12,6 +12,36 @@ a {
     color: black;
 }
 
+.langbar {
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: flex;
+    padding: 10px;
+}
+
+.langflag {
+    width: max(2.5vw, 30px);
+    height: max(2.5vw, 30px);
+    background-color: black;
+    margin-inline: 5px;
+    background-size: cover;
+    border-radius: 25%;
+    transition: all 0.1s ease-in;
+}
+
+.langflag:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 5px #999;
+}
+
+#eng {
+    background-image: url("../images/eng.svg");
+}
+#tp {
+    background-image: url("../images/tp.svg");
+}
+
 h1,h2,h3, #me {
     font-family:'Lato', sans-serif;
     font-weight: 400;
