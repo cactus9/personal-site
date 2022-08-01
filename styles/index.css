@@ -13,10 +13,11 @@ a {
 }
 
 .langbar {
-    position: absolute;
-    right: 0;
-    top: 0;
+    position: relative;
+    top:0%;
+    right: 0%;
     display: flex;
+    flex-direction: row-reverse;
     padding: 10px;
 }
 
@@ -234,6 +235,10 @@ h1,h2,h3, #me {
         padding-left:10%;
         padding-right:10%;
         overflow: hidden;
+    }
+
+    .langbar {
+        position: absolute;
     }
 
     .content {
