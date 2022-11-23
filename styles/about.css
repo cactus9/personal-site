@@ -2,8 +2,11 @@
     --block: min(50vw, 200px);
 }
 
-* {
-    transform-style: preserve-3d;
+@supports (-moz-appearance:none) {
+    /*Unfortunately the 3D causes issues on Apple devices that do not use firefox*/
+    * {
+        transform-style: preserve-3d;
+    }
 }
 
 body {
