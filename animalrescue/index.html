@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Londom Animal Rescues</title>
+        <script src="https://d3js.org/d3.v7.min.js"></script>
+        <script src="https://unpkg.com/topojson@3.0.2/dist/topojson.min.js"></script>
+        <link rel="stylesheet" href="styles.css">
+        <base href=".">
+    </head>
+    <body>
+        
+        <header><h1>Animal Rescue Calls to the London Fire Brigade, 2009-2022</h1>
+            <p>
+                Every year, the London Fire Brigade receives hundreds of calls to assist animals in need of rescue. This visualisation app uses data from January 1st 2009 when the record began, up until December 31st 2022 when this data-set was published.
+            </p>
+            <p>
+                From the control panel, calls can be grouped by the animal in question, the location of the incident, the origin of the call, pump count (how many fire hydrants were sent out to assist), and the number of hours the rescue took. The button plays a 5-second animation on the map showing the order in which calls were made (<strong>warning: contains flashing imagery</strong>), and the way calls are ordered can also be changed - e.g. viewing call's distribution over the course of a week, instead of over all time. This will also update the stacked-area chart below.
+            </p>
+            <p>
+                On the map, zoom in and hover over calls to see further incident details. Calls can be filtered by category in the bar-chart / legend on the right, or by clicking a grid cell below, or an area in the stacked-area chart. In the matrix plot, cells can be coloured by the overall quantity of calls in that cell, or by how far said quantity deviates from what would be expected if calls were independently distributed between categories.
+            </p>
+        </header>
+    
+        <main>
+        
+            <div id='map-content' class='widget'>
+                <h2 class='view-title'>Map of calls in Greater London</h2>
+                <svg id='map'></svg>
+            </div>
+            
+            <div id='categorical-content' class='widget'>
+            </div>
+            
+            <div id='control-panel' class='widget'>
+                <h2>Control panel</h2>
+                <div class='flex'>
+                    <div class='labeled-input'>
+                        <label for='category-type-select'>Group calls by</label>
+                        <select id='category-type-select'></select>
+                    </div>
+                    <fieldset> <!-- Idiomatic HTML -->
+                        <legend>View call time distribution over</legend>
+                        <div class='flex'>
+                            <div class = 'labeled-input'>
+                                <input type="radio" value="all-time" id="all-time" name="timing" checked = "checked">
+                                <label for='all-time'>All time</label>
+                            </div>
+                            <div class = 'labeled-input'>
+                                <input type="radio" value="year" id="year" name="timing">
+                                <label for='year'>Year</label>
+                            </div>
+                            <div class = 'labeled-input'>
+                                <input type="radio" value="week" id="week" name="timing">
+                                <label for='week'>Week</label>
+                            </div>
+                            <div class = 'labeled-input'>
+                                <input type="radio" value="day" id="day" name="timing">
+                                <label for='day'>Day</label>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <input type="button" id="play" value = 'Animate calls by time'>
+                    
+                </div>
+            </div>
+            
+            <div id='area-div' class='widget'>
+            </div>
+            
+            <div id='matrix-content' class='widget'>
+            </div>
+        
+        </main>
+        
+        <footer>
+            <p>Source of data:<br><a href="https://data.london.gov.uk/dataset/animal-rescue-incidents-attended-by-lfb">https://data.london.gov.uk/dataset/animal-rescue-incidents-attended-by-lfb</a></p>
+            <p>Contains public sector information licensed under the Open Government Licence v3.0.<br><a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/</a></p></p>
+        </footer>
+        
+        <script src="PaletteGenerator.js"></script>
+        <script src="ScatterMap.js"></script>
+        <script src="BarLegend.js"></script>
+        <script src="StackedArea.js"></script>
+        <script src="MatrixPlot.js"></script>
+        <script src="index.js" type="module"></script>
+    </body>
+</html>

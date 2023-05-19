@@ -1,0 +1,105 @@
+/* First up: the main layout */
+
+html {
+    font-size: 12px;
+}
+
+a {
+    color: unset;
+}
+
+body {
+    display: grid;
+    grid-auto-flow: row;
+    gap: 0;
+    
+    margin-inline: 15%;
+    
+    background-color: #111;
+    filter: drop-shadow(0 0 30px black);
+}
+
+main {
+    display: flex;
+    font-size: 1.5rem;
+}
+
+h1,h2,h3 {
+    font-family:'Lato', sans-serif; /* Get them fonts */
+    font-weight: 400;
+}
+
+p,a,li {
+    font-family:'Noto Sans', sans-serif;
+    font-weight: 300;
+}
+
+header {
+    background-color: #10253F;
+    color: white;
+}
+
+h1 {
+    font-size: 5rem;
+    margin-left: 4rem;
+}
+
+h2, h3 {
+    margin-bottom:unset;
+}
+
+h2 {
+    font-size: 2.5rem;
+}
+
+h3 {
+    margin-top: 1rem;
+}
+
+p, ul {
+    margin-block: 1rem;
+    margin-top:unset;
+}
+
+main > :first-child { /*left div*/
+    background-color: #10728D;
+    color: white;
+    flex: 1;
+    padding: 2rem;
+    display: grid;
+}
+
+main > :last-child { /*left div*/
+    background-color: white;
+    color: #10728D;
+    flex: 2;
+    padding: 2rem;
+}
+
+main section:first-of-type h2 { /* Removes unsightly gap */
+    margin-top: unset;
+}
+
+main > :last-child h3 { /*left div*/
+    color: black;
+}
+
+main > :last-child p { /*left div*/
+    color: #555; /*Devil's number, for clout*/
+}
+
+.degree, .society {
+    font-style: italic;
+}
+
+.grade {
+    font-weight: 400;
+}
+
+abbr {
+    cursor: help;
+}
+
+ul {
+    list-style: square outside;
+}

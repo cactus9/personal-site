@@ -1,0 +1,381 @@
+:root {
+    --line-colour: #555;
+    --text-colour: #222;
+    --split-align-proportion: 0.5;
+    --category-grid-gap: 0.5rem;
+    --bar-border-width: 2px;
+    --animation-duration: 0.3s;
+}
+
+html {
+    font-size: 16px;
+}
+
+p, h1, h2, h3, text, option, select, label, legend {
+    font-family: sans-serif;
+    color: var(--text-colour);
+}
+
+header {
+    margin-top: 3rem;    
+    padding: 2rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+}
+
+main, .widget, #tooltip, select, input[type='button'] {
+    border-radius: 1rem;
+}
+
+svg {    
+    width: 100%;
+    height: 100%;
+}
+
+.widget, #tooltip {
+    filter: drop-shadow(0 0 5px rgba(0,0,0,0.1)); /* I wanted a grey drop-shadow that would not lighten elements behind, so thin black it is */
+    background-color: #fff;
+}
+
+select, select option, input[type='button'] {
+    border: unset;
+    padding-left: 0.5rem;
+    background-color: #f0f0f0;
+    filter: drop-shadow(0 3px 5px rgba(0,0,0,0.25));
+}
+
+
+body {
+    max-width: min(90%, 75rem);
+    margin-inline: auto;
+    background-color: #f0f0f0;
+}
+
+main {
+    /* The main visualisations */
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    grid-template-rows: auto 1.25fr 1fr;
+    
+    height: 70rem;
+    margin-bottom: 3rem;
+    padding: 2rem;
+    gap: 1.5rem;
+    
+    background-color: #fafafa;
+    filter: drop-shadow(0 0 1rem #ddd);
+}
+
+h2.view-title {
+    margin-block: 1rem;
+    font-size: 1.2rem;
+}
+
+.widget {
+    display:flex;
+    flex-direction: column;
+}
+
+.flex {
+    display: flex;
+}
+
+#control-panel {
+    grid-row: 1;
+    grid-column: 1 / span 2;
+    padding-inline: 0.5rem;
+    padding-block: 1rem;
+}
+
+#control-panel label, input, legend, select, option {
+    font-size: 1.2rem;
+}
+
+#control-panel h2 {
+    margin-top: 0;
+    font-size: 1.5rem;
+}
+
+#control-panel > div.flex {
+    justify-content: space-around;
+}
+
+#control-panel fieldset {
+    border: unset;
+    padding: unset;
+}
+
+#control-panel legend, label[for='category-type-select'] {
+    font-weight: bold;
+}
+
+.widget > svg {
+    border-radius: 0 0 1rem 1rem;
+    height: unset;
+    flex-grow: 1;
+}
+
+#map-content {
+    grid-row: 2;
+    grid-column: 1;
+}
+
+#map-content h2.view-title {
+    margin-left: 0.5rem;
+}
+
+.widget:not(#categorical-content, #control-panel) div {
+    padding-inline: 0.5rem;
+}
+
+.widget:not(#categorical-content) div p {
+    display: inline-block;
+    margin-top: 0;
+}
+
+.widget p + select {
+    font-size: 1rem;
+    margin-left: var(--category-grid-gap);
+}
+
+#categorical-content {
+    grid-row: 2;
+    grid-column: 2;
+    padding-inline: 0.5rem;
+    overflow: hidden;
+}
+#categorical-chart-scrollable {
+    height: 100%;
+    overflow-y: scroll; /* Auto is better, pero desafortunadamenta it causes some elements to register different widths before overflow causes scrollbars to reflow */
+}
+
+#categorical-chart-headers {
+    position: sticky; /* Qué zorraaaaa */
+    top: 0;
+    background-color: white;
+    padding-bottom: var(--category-grid-gap);
+    z-index: 1;
+}
+
+#categorical-axis-div {
+    margin-top: var(--category-grid-gap);
+}
+
+#categorical-axis-div svg {
+    height: 2rem;
+}
+
+#categorical-axis-div select {
+    margin-inline: var(--category-grid-gap);
+}
+
+#categorical-chart-bars {
+    position: relative; /* for absolute positioning later */
+    display:grid;
+    gap: var(--category-grid-gap);
+    overflow-x: hidden;
+}
+#categorical-content h3 {
+    font-size: 1rem;
+    height: auto; /* Gonna be honest, not 100% sure why I need this to make the spacing work */
+    margin-block: 0;
+}
+
+#area-div {
+    grid-row: 3;
+    grid-column: 2;
+}
+
+#matrix-content {
+    grid-row: 3;
+    grid-column: 1;
+}
+
+#matrix-content h2, #area-div h2 {
+    display: inline-block;
+}
+
+#matrix-content h2 + select, #area-div h2 + select {
+    margin-inline: var(--category-grid-gap);
+    font-size: 1.2rem;
+}
+
+#tooltip {
+    position: absolute;
+    max-width:20rem;
+    
+    border-radius: 0.3rem;
+    filter: drop-shadow(0.4rem 0.4rem 0.4rem rgba(0,0,0,0.3));
+    padding: 0.5rem;
+}
+
+#tooltip h2 {
+    font-size: 1rem;
+    text-transform: lowercase;
+    margin: 0;
+}
+#tooltip h2::first-letter {
+    text-transform: uppercase;
+}
+
+#tooltip p {
+    margin-block: 0.5rem;
+}
+
+/* Now for actual elements */
+
+.axis-label {
+    text-anchor: middle;
+    fill: var(--text-colour);
+    font-size: 1rem;
+}
+
+path.borough {
+    fill: none;
+    stroke: var(--line-colour);
+    stroke-width: 1px;
+}
+
+#map {
+    pointer-events:all;
+}
+
+#map circle {
+    stroke: var(--text-colour);
+    stroke-width: 0.1px;
+    transition: r var(--animation-duration) ease-out;
+}
+
+div.split-align { /* split-align: gives common baseline */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--category-grid-gap);
+}
+
+div.split-align :first-child {
+    height: 2.5rem;
+}
+
+.cat-bar p {
+    margin-block: auto;
+}
+
+@keyframes slide-in {
+    from {
+        transform: translate(-100%);
+        opacity:0;
+    }
+    
+    to {
+        transform: translate(0);
+        opacity:1;
+    }
+}
+
+.cat-bar {
+    position: relative;
+    animation: var(--animation-duration) ease-out slide-in;
+}
+
+div.bar {
+    border: var(--bar-border-width) solid var(--text-colour);
+    transition: width 0.5s ease;
+}
+
+#categorical-axis-div .tick text {
+    font-size: 0.7rem;
+    transform: translate(-0.2rem);
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 0.7;
+    }
+}
+
+path.category-area {
+    stroke: var(--text-colour);
+    stroke-width: 1px;
+    transition: opacity var(--animation-duration) ease-out;
+    animation: 0.7s ease-out fade-in;
+}
+
+path.category-area:hover{
+    opacity: 1;
+}
+
+text.col-label {
+    transform: rotate(-0.25turn);
+}
+
+text.row-label {
+    text-anchor: end;
+}
+
+#matrix-content rect {
+    transition: all var(--animation-duration) ease-out;
+}
+
+#matrix-content rect:hover {
+    stroke: red;
+}
+
+#matrix-content rect, path.category-area, div.bar, select, option, input[type='button'] {
+    cursor: pointer;
+}
+
+.legend-label, #matrix-legend {
+    display: inline;
+}
+
+#matrix-legend {
+    max-width: 12rem;
+    height: 1rem;
+    flex-grow:1;
+    margin-inline: 1rem;
+}
+
+@keyframes pop-in0 {
+    
+    20% {
+        r: 5px;
+    }
+    
+    40% {
+        r: 0.1px;
+    }
+    100% {
+        r: 0.1px
+    }
+}
+
+@keyframes pop-in1 {
+    from {
+        r: 0px;
+    }
+    
+    20% {
+        r: 5px;
+    }
+    
+    40% {
+        r: 0.1px;
+    }
+    100% {
+        r: 0.1px
+    }
+}
+
+input[type='button'] {
+    padding: 0.5rem;
+    height: fit-content
+}
+
+footer {
+    margin-bottom: 5rem;
+}
