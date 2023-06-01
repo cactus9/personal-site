@@ -5,6 +5,10 @@ body {
     font-size:20px;
     padding-left:5%;
     padding-right:5%;
+    
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
 }
 
 a {
@@ -43,18 +47,10 @@ a {
     background-image: url("../images/tp.svg");
 }
 
-h1,h2,h3, #me {
+nav a, #me {
     font-family:'Lato', sans-serif;
     font-weight: 400;
     text-align: right;
-}
-
-.content {
-    width: 100%;
-    height: 100%;
-    display:grid;
-    grid-template-columns: 1fr;
-    grid-auto-rows: auto;
 }
 
 #menu {
@@ -64,22 +60,17 @@ h1,h2,h3, #me {
     grid-column: 1;
 }
 
-.fill-text {
-    width: fit-content;
+nav a {
+    max-width: fit-content;
     margin-left: auto;
     margin-right: 0;
-}
-
-.fill-text h1 {
-    padding: 5px;
+    
     line-height: 100%;
-    margin:auto;
-    margin-right: 0;
     transition: all 0.3s ease-out;
     font-size: min(35px,10vw);
 }
 
-.fill-text h1:hover{
+nav a:hover{
     color: white;
     background-color: black;
 }
@@ -222,9 +213,6 @@ h1,h2,h3, #me {
 }
 
 #iris {
-    place-self: center;
-    display: grid;
-    z-index: -5;
     max-width: min(100%, 100vw);
     max-height: min(100%, 100vh);
 }
@@ -235,19 +223,14 @@ h1,h2,h3, #me {
         padding-left:10%;
         padding-right:10%;
         overflow: hidden;
+        
+        grid-template-columns: auto auto;
     }
 
     .langbar {
         position: absolute;
     }
-
-    .content {
-        width: 100%;
-        height: 100%;
-        display:grid;
-        grid-template-columns: auto auto;
-    }
-
+    
     #menu {
         grid-row: 1;
         grid-column: 2;
@@ -264,14 +247,13 @@ h1,h2,h3, #me {
     body {
         padding-left:20%;
         padding-right:20%;
+        grid-template-columns: 1fr 1fr;
     }
     .scene {
         padding: 0;
     }
-    .content {
-        grid-template-columns: 1fr 1fr;
-    }
-    .fill-text h1 {
+
+    nav a {
         margin: 0;
         margin-top:25px;
         margin-bottom: 25px;

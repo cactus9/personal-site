@@ -37,45 +37,35 @@
         </script>
     </head>
     <body>
-        <div class="langbar">
+        <nav class="langbar">
             <a href="./tp" class="langflag" id="tp"></a>
             <a href="." class="langflag" id="eng"></a>
-        </div>
-        <div class="content">
-            <div class="scene">
-                <div id="butterbanner">
-                    <p id="common-name">Peacock</p>
-                    <p id="science-name">Aglais io</p>
-                </div>
-                <div id="butterfly" onclick="changePic()">
-                    <img id="wing1" src="images/peacock-wing-1.svg" alt="wing">
-                    <img id="butterbod" src="images/peacock-body.svg">
-                    <img id="wing2" src="images/peacock-wing-2.svg" alt="wing">
-                </div>
-                    <img id="iris" src="images/iris.svg" alt="bearded iris drawing">
+        </nav>
+        
+        <div class="scene">
+            <div id="butterbanner">
+                <p id="common-name">Peacock</p>
+                <p id="science-name">Aglais io</p>
             </div>
-            <div id="menu">
-                <p id="me">Evan Caton</p>
-                <div class="fill-text">
-                    <a href="./iris"><h1>Iris Project</h1></a>
-                </div>
-                <div class="fill-text">
-                    <a href="./cssexperiments/analysis"><h1>CSS Design Analysis</h1></a>
-                </div>
-                <div class="fill-text">
-                    <a href="./cssexperiments/demos"><h1>CSS Demos</h1></a>
-                </div>
-                <div class="fill-text">
-                    <a href="./animalrescue"><h1>Animal Rescue Calls, Visualised</h1></a>
-                </div>
-                <div class="fill-text">
-                    <a href="about"><h1>About</h1></a>
-                </div>
-                <div class="fill-text">
-                    <a href="https://github.com/cactus9"><h1>GitHub</h1></a>
-                </div>
-
+            <div id="butterfly" onclick="changePic()">
+                <img id="wing1" src="images/peacock-wing-1.svg" alt="wing">
+                <img id="butterbod" src="images/peacock-body.svg">
+                <img id="wing2" src="images/peacock-wing-2.svg" alt="wing">
             </div>
+            <img id="iris" src="images/iris.svg" alt="bearded iris drawing">
         </div>
+            
+        <nav id="menu">
+            <h1 id="me">Evan Caton</h1>
+            <ul>
+                <li><a href="./iris">Iris Project</a></li>
+                <li><a href="./cssexperiments/analysis">CSS Design Analysis</a></li>
+                <li><a href="./cssexperiments/demos">CSS Demos</a></li>
+                <li><a href="./animalrescue">Animal Rescue Calls, Visualised</a></li>
+                <li><a href="about">About</a></li>
+                <li><a href="https://github.com/cactus9">GitHub</a></li>
+            </ul>
+        </nav>
+        
     </body>
 </html>
