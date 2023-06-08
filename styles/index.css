@@ -23,6 +23,8 @@ a {
     display: flex;
     flex-direction: row-reverse;
     padding: 10px;
+    
+    grid-row: 1;
 }
 
 .langflag {
@@ -47,7 +49,7 @@ a {
     background-image: url("../images/tp.svg");
 }
 
-nav a, #me {
+#menu a, #me {
     font-family:'Lato', sans-serif;
     font-weight: 400;
     text-align: right;
@@ -56,24 +58,33 @@ nav a, #me {
 #menu {
     width: 100%;
     place-self: center;
-    grid-row: 1;
+    grid-row: 2;
     grid-column: 1;
+    
 }
 
-nav a {
-    max-width: fit-content;
-    margin-left: auto;
-    margin-right: 0;
+#menu a {
+    display: block;
     
-    line-height: 100%;
     transition: all 0.3s ease-out;
     font-size: min(35px,10vw);
 }
 
-nav a:hover{
+#menu a:hover{
     color: white;
     background-color: black;
 }
+
+#menu ul {
+    list-style: none;
+    list-style-position: right;
+}
+
+#menu li {
+    margin-right: 0;
+    margin-left: auto;
+}
+
 
 #me {
     font-size: min(64px,15vw);
@@ -81,7 +92,7 @@ nav a:hover{
 }
 .scene {
     display: grid;
-    grid-row: 2;
+    grid-row: 3;
     grid-column: 1;
     position: relative;
     perspective: 950px;
@@ -253,8 +264,7 @@ nav a:hover{
         padding: 0;
     }
 
-    nav a {
-        margin: 0;
+    #menu a {
         margin-top:25px;
         margin-bottom: 25px;
     }
