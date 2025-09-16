@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Home</title>
         <link rel="stylesheet" href="styles/fonts.css">
+        <link rel="stylesheet" href="styles/colorscheme.css">
         <link rel="stylesheet" href="styles/index.css">
         <!-- Sunflowers are home -->
         <link rel="icon" type="image/x-icon" href="images/favicon.svg">
@@ -37,9 +38,20 @@
         </script>
     </head>
     <body>
-        <nav class="langbar">
-            <a href="./tp" class="langflag" id="tp"></a>
-            <a href="." class="langflag" id="eng"></a>
+        <nav class="options-bar">
+            <div id="themes">
+                <button class="theme-switch"><div class="theme-icon"></div><p>Theme</p></button>
+                <ul class="theme-list">
+                    <li class="theme-option" id="auto"><button class="theme-switch"><div class="theme-icon"></div><p>Auto</p></button></li>
+                    <li class="theme-option" id="light"><button class="theme-switch"><div class="theme-icon"></div><p>Light</p></button></li>
+                    <li class="theme-option" id="dark"><button class="theme-switch"><div class="theme-icon"></div><p>Dark</p></button></li>
+                </ul>
+            </div>
+            <div id="langs">
+                <a href="./tp" class="langflag" id="tp"></a>
+                <a href="." class="langflag" id="eng"></a>
+            </div>
+            
         </nav>
         
         <div class="scene">

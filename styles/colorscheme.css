@@ -1,0 +1,36 @@
+:root {
+    --clr-purple: #50107c;
+    --clr-pink: #cf7ce4;
+    --clr-background: white;
+    --clr-text: black;
+    --clr-text-header: white;
+    --clr-text-on-dark: white;
+    --clr-text-accent: var(--clr-purple);
+    --len-text-fill-pad: 0.15em;
+    --clr-card-default-background: #white;
+    --clr-card-default-shadow: #999;
+    --len-card-default-blur-radius: 5px;
+    --clr-card-dark-background: #555;
+    --clr-card-dark-shadow: black;
+    --clr-iframe-border: black;
+    --clr-code-background: #eee;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --clr-background: #1e1e1e;
+        --clr-text: white;
+        --clr-card-default-background: #555;
+        --clr-card-default-shadow: black;
+        --len-card-default-blur-radius: 10px;
+        --clr-card-dark-background: #333;
+        --clr-iframe-border: white;
+        --clr-text-accent: var(--clr-pink);
+        --clr-code-background: #404040;
+    }
+}
+
+body {
+    background-color: var(--clr-background);
+    color: var(--clr-text);
+}

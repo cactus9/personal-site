@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Iris project</title>
         <link rel="stylesheet" href="../styles/fonts.css">
+        <link rel="stylesheet" href="../styles/colorscheme.css">
         <link rel="stylesheet" href="../styles/article.css">
         <link rel="icon" type="image/x-icon" href="../images/favicon.svg">
         <style media="screen">
@@ -20,12 +21,19 @@
                 background-repeat: no-repeat;
                 background-size: cover;
             }
+            article img {
+                background-color: white;
+            }
         </style>
         <meta name="title" property="og:title" content="Exploring Machine Learning Models with the Iris Data Set">
         <meta name="image" property="og:image" content="../images/irisbackdrop.jpg">
         <meta property="og:type" content="article">
         <meta name="description" property="og:description" content="An introduction to machine learning concepts and models used.">
         <meta name="author" content="Evan Caton">
+        <script>
+            /*to prevent Firefox FOUC, this must be here*/
+            let FF_FOUC_FIX;
+        </script>
     </head>
     <body>
 <a href="../" id="home-button"><img src="../images/favicon.svg" title="Home"><p>Home</p></a>

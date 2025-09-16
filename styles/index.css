@@ -1,3 +1,11 @@
+:root {
+    --len-button: max(2.5vw, 30px);
+}
+
+*:focus {
+    outline: 2px solid var(--clr-text-accent);
+}
+
 body {
     margin: 0;
     height: 100vh;
@@ -13,10 +21,10 @@ body {
 
 a {
     text-decoration: none;
-    color: black;
+    color: var(--clr-text);
 }
 
-.langbar {
+.options-bar {
     position: relative;
     top:0%;
     right: 0%;
@@ -27,10 +35,21 @@ a {
     grid-row: 1;
 }
 
+.options-bar > div {
+    display: flex;
+    position: relative;
+    padding-inline: 5px;
+    align-items: center;
+}
+
+.options-bar > div ~ div {
+    border-right: 2px solid var(--clr-card-dark-background);
+}
+
 .langflag {
-    width: max(2.5vw, 30px);
-    height: max(2.5vw, 30px);
-    background-color: black;
+    width: var(--len-button);
+    height: var(--len-button);
+    background-color: var(--clr-background);
     margin-inline: 5px;
     background-size: cover;
     border-radius: 25%;
@@ -39,14 +58,90 @@ a {
 
 .langflag:hover {
     transform: translateY(-3px);
-    box-shadow: 0 5px 5px #999;
+    box-shadow: 0 var(--len-card-default-blur-radius) var(--len-card-default-blur-radius) var(--clr-card-default-shadow);
 }
 
 #eng {
+    background-color: #4b4bc9;
     background-image: url("../images/eng.svg");
 }
 #tp {
+    background-color: #c3f1ff;
     background-image: url("../images/tp.svg");
+}
+
+#themes ul.theme-list {
+    position: absolute;
+    top: calc(100%);
+    left: 50%;
+    transform: translate(-50%);
+    
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0.3em;
+    border-radius: calc(var(--len-button) / 4);
+    background-color: var(--clr-card-dark-background);
+    box-shadow: 0 calc(var(--len-card-default-blur-radius)/2) var(--len-card-default-blur-radius) var(--clr-card-default-shadow);
+    
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    & li {
+        display: block;
+        pointer-events: none;
+    }
+    & button:hover {
+        color: var(--clr-text-accent);
+    }
+}
+
+#themes:has(:hover) .theme-list, #themes:has(:focus) .theme-list {
+    pointer-events: auto;
+    opacity: 1;
+    & li {
+        pointer-events: auto;
+    }
+}
+
+#themes button {
+    appearance: none;
+    border: none;
+    color: unset;
+    background-color: unset;
+    cursor: pointer;
+    
+    padding: 0.2em;
+    
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3em;
+    & p {
+        margin-block: auto;
+    }
+    min-height: var(--len-button);
+    font-size: 0.8em;
+    border-radius: calc(var(--len-button) / 8);
+}
+
+button.theme-switch div.theme-icon  {
+    display: inline-block;
+    width: 1em;
+    aspect-ratio: 1;
+}
+
+#themes > button div.theme-icon {
+    width: 1.3em;
+}
+
+#themes > button.theme-switch div.theme-icon, #auto div.theme-icon {
+    background-image: linear-gradient(to right, currentcolor, currentcolor 50%, transparent 50%);
+    border: 0.12em solid currentcolor;
+    border-radius: 50%;
+}
+
+#dark div.theme-icon {
+    
 }
 
 #menu a, #me {
@@ -71,7 +166,7 @@ a {
 }
 
 #menu a:hover{
-    color: white;
+    color: var(--clr-text-on-dark);
     background-color: black;
 }
 
@@ -124,15 +219,15 @@ a {
     display: grid;
     z-index: 10;
     grid-template-rows: 3fr 2fr;
-    background-color: #515151;
-    border-radius: 10%;
-    color: white;
+    background-color: var(--clr-card-dark-background);
+    border-radius: 1em;
+    color: var(--clr-text-on-dark);
     padding-top: 3%;
     padding-bottom: 3%;
     padding-left: 6%;
     padding-right: 6%;
     place-self: center;
-    filter: drop-shadow(0 1vh 0.5vh black);
+    filter: drop-shadow(0 1vh 0.5vh var(--clr-card-dark-shadow));
     opacity: 0%;
 }
 #common-name {
@@ -238,7 +333,7 @@ a {
         grid-template-columns: auto auto;
     }
 
-    .langbar {
+    .options-bar {
         position: absolute;
     }
     

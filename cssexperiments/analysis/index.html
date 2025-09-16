@@ -5,11 +5,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>CSS Analysis</title>
         <link rel="stylesheet" href="../../styles/fonts.css">
+        <link rel="stylesheet" href="../../styles/colorscheme.css">
         <link rel="stylesheet" href="../../styles/article.css">
         <link rel="icon" type="image/x-icon" href="../../images/favicon.svg">
         <style media="screen">
         :root {
-            --code-color: #50107c; /*Chosen from iris image*/
+            --code-color-background: var(--clr-purple);
+            --code-color-text: var(--clr-text-accent);
             --highlight-color: #cf7ce4; /*Chosen from iris image*/
         }
 
@@ -17,14 +19,10 @@
             background-color: #123750; /*Chosen from banner image*/
         }
             .code {
-                background-color: var(--code-color);
-                color:white;
+                background-color: var(--code-color-background);
+                color: var(--clr-text-on-dark);
                 padding: 0.5em;
                 overflow-x: scroll;
-            }
-            code {
-                color: var(--code-color);
-                font-weight: bold;
             }
             button {
                 position: relative;
@@ -56,7 +54,7 @@
             }
 
             iframe, .frame {
-                border:1px solid black;
+                border:1px solid var(--clr-iframe-border);
                 min-height: 30ch;
                 width: 100%;
             }
@@ -167,6 +165,10 @@
         <meta property="og:type" content="article">
         <meta name="description" property="og:description" content="An exploration and analysis of the design of some CSS features.">
         <meta name="author" content="Evan Caton">
+        <script>
+            /*to prevent Firefox FOUC, this must be here*/
+            let FF_FOUC_FIX;
+        </script>
     </head>
     <body>
         <a href="../../" id="home-button"><img src="../../images/favicon.svg" title="Home"><p>Home</p></a>
@@ -185,7 +187,7 @@
             <p>I only found out that 3D animations were possible in CSS around last October, and my initial reactions to this revelation were</p>
             <ol>
                 <li>"Wow! That's really cool."</li>
-                <li>"Wait, then what's the point of &ltcanvas&gt?"</li>
+                <li>"Wait, then what's the point of <code>&ltcanvas&gt</code>?"</li>
             </ol>
             <p>These features are neat and all, but they weren't even new to the web when this was first proposed - it's that this used to be primarily handled by JavaScript libraries. Additionally, when I've shown people the demos I've made using pure CSS, their reaction always carries a feeling of "CSS? <i>Really?</i>" - a slight bafflement, a sense that putting this functionality in CSS is somehow unintuitive. Anyone familiar with the language will know that "intuitive" has never been an accurate descriptor for any aspect of CSS, but still. </p>
             <p>The reason why these features are in the language is simple: Apple asked for them, and a lot of the group thought they were nifty. There was also some <a href="https://lists.w3.org/Archives/Public/www-style/2008Mar/0322.html">discussion</a> on CSS not wanting to become irrelevant as other technologies began to fulfill demands for presenting web content. As for why Apple specifically was the one to call for these, it's hard to tell. As an aside, I recommend reading one Apple representative's hilariously shady and unprofessional <a href="https://lists.w3.org/Archives/Public/www-style/2008Mar/0321.html">response</a> to a Microsoft employee questioning if these features were really appropriate. It brought me joy.</p>
@@ -205,8 +207,8 @@ p {
     background-color: purple;
 }
 </pre>
-            <div class="frame" >
-                <p style="color:white; background-color: var(--code-color); height:fit-content; padding:1em;">This is a paragraph.</p>
+            <div class="frame" style="background-color: var(--clr-purple) !important;">
+                <p style="color:white; height:fit-content; padding:1em;">This is a paragraph.</p>
             </div>
 
             <h2>Animations and transitions</h2>
